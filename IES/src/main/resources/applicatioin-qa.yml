@@ -1,0 +1,22 @@
+
+  
+ies:
+  properties:
+      message: welcome to IES-qa 
+      success: Registration Sucessful
+      failed: Registration failed
+logging:
+  file: IES-APP-LOGS.log
+  level:
+    com.usa.ri.gov.ies: info 
+   
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localost:1521:xe
+    username: system
+    password: pulla143 
