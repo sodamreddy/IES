@@ -11,10 +11,10 @@ public class ApplicationConstants {
 	/**
 	 * message on successful registration
 	 */
-	private static final String sucesss = "Registration Sucessful......";
+	public static final String sucesss = "Sucess";
 	/**
 	 * message on registration fails
 	 */
-	private static final String failed = "Registration Failed......";
+	public static final String failed = "Failed";
 
 }
