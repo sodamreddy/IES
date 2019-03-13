@@ -24,4 +24,12 @@ public class AppProperties {
 	@Setter
 	private Map<String, String> properties = new HashMap<String, String>();
 
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
+
 }
