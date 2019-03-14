@@ -1,5 +1,5 @@
 server:
-  port: 7071
+  port: 2121
 ies:
   properties:
     message: welcome to IES-dev
@@ -7,23 +7,25 @@ ies:
     failed: Registration failed
     regEmailFileName: Registration_Email_Template.txt
     regEmailSubject: IES Registration Completed
-    
 logging:
   file: IES-APP-LOGS.log
   level:
     root: INFO
     com.usa.ri.gov.ies: DEBUG
- 
 spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: system
-    password: pulla143
+    url: jdbc:mysql://localhost:3306/sodam
+    username: root
+    password: pULLA143
+    driver-class-name: com.mysql.jdbc.Driver
   mail:
     host: smtp.gmail.com
     port: 587
@@ -34,4 +36,4 @@ spring:
         smtp:
           auth: true
           starttls:
-           enable: true
+            enable: true

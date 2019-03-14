@@ -7,11 +7,11 @@
 <meta charset="ISO-8859-1">
 <title>Account Registration</title>
 
-<style>
+<!-- <style>
 .error {
 	color: #FF0000
 }
-</style>
+</style> -->
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -34,10 +34,10 @@
 					required : true,
 					minlength : 5,
 				},
-				dob : 'required',
+				dateOfBirth : 'required',
 				gender : 'required',
 				role : 'required',
-				phno : 'required',
+				phoneNo: 'required',
 				ssn : 'required'
 			},
 			messages : {
@@ -59,7 +59,7 @@
 			}
 		});
 
-		$("#emailId").blur(function() {
+		/* $("#emailId").blur(function() {
 			var enteredEmail = $("#emailId").val();
 			$.ajax({
 				url : window.location + "/validateEmail",
@@ -75,7 +75,7 @@
 				}
 			});
 
-		});
+		}); */
 
 		$("#datepicker").datepicker({
 			changeMonth : true,

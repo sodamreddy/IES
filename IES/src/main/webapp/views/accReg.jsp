@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<title>Account Registration</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -15,54 +14,57 @@
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
-	$(function(){
+	$(function() {
 		$('form[id="accRegForm"]').validate({
-			rules:{
-				firstName: 'required',
-				lastName: 'required',
-				dataOfBirth: 'required',
-				gender:'required',
-				ssn:'required',
-				phoneNo:'required',
-				role:'required',
-				emailId:{
-					required:true,
-					emailId:true,
-					},
-				password:{
-					required:true,
-					maxlength:5,
+			rules : {
+				firstName : 'required',
+				lastName : 'required',
+				dataOfBirth : 'required',
+				gender : 'required',
+				ssn : 'required',
+				phoneNo : 'required',
+				role : 'required',
+				emailId : {
+					required : true,
+					emailId : true,
+				},
+				password : {
+					required : true,
+					maxlength : 5,
 				},
 			},//rules
-				messages : {
-					firstName : 'Please enter first name',
-					lastName : 'please enter last name',
-					emailId : 'Please enter a valid email',
-					password : {
-						required : 'Please enter password',
-						minlength : 'Password must be at least 5 characters long'
-					},
-					dob : 'Please select dob',
-					gender : 'Please select Gender',
-					role : 'Please select a Role',
-					phoneNo : 'Please enter Phno',
-					ssn : 'Please enter SSN'
-				},//messages
-				submitHandler:function(form){
-					form.submit();
-				}	
+			messages : {
+				firstName : 'Please enter first name',
+				lastName : 'please enter last name',
+				emailId : 'Please enter a valid email',
+				password : {
+					required : 'Please enter password',
+					minlength : 'Password must be at least 5 characters long'
+				},
+				dateOfBirth : 'Please select dob',
+				gender : 'Please select Gender',
+				role : 'Please select a Role',
+				phoneNo : 'Please enter Phno',
+				ssn : 'Please enter SSN'
+			},//messages
+			submitHandler : function(form) {
+				form.submit();
+			}
 		});
 		$("#datepicker").datepicker({
-			changeMonth:true,
-			changeYear: true,
-			maxDate:new Date(),
-			dateFormat:'dd/mm/yy'
-		});	
+			changeMonth : true,
+			changeYear : true,
+			maxDate : new Date(),
+			dateFormat : 'dd/mm/yy'
+		});
 	});
 </script>
+</head>
+
 <body>
 	<h2>Registration Form</h2>
-	<form:form action="accReg" method="POST" name="accRegForm" modelAttribute="accModel">
+	<form:form action="accReg" method="POST" id="accRegForm"
+		modelAttribute="accModel">
 		<table>
 			<tr>
 				<td>First Name</td>
@@ -78,8 +80,8 @@
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td>Male<form:radiobutton path="gender" value="M" /> Female<form:radiobutton
-						path="gender" value="F" /></td>
+				<td><form:radiobutton path="gender" value="Male" /> <form:radiobutton
+						path="gender" value="Female" /></td>
 			</tr>
 			<tr>
 				<td>Email Id</td>
@@ -99,11 +101,10 @@
 			</tr>
 			<tr>
 				<td>Role</td>
-				<td><form:select path="role" >
-					<form:option value="Admin"/>
-					<form:option value="case worker"/>
-					</form:select>
-					</td>
+				<td><form:select path="role">
+						<form:option value="Admin" />
+						<form:option value="case worker" />
+					</form:select></td>
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
