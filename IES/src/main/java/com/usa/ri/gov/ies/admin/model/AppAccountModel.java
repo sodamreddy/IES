@@ -9,7 +9,7 @@ public class AppAccountModel {
 
 	private String firstName;
 	private String lastName;
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String phoneNo;
 	private String ssn;
 	private String emailId;
@@ -28,10 +28,10 @@ public class AppAccountModel {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public String getPhoneNo() {
@@ -69,6 +69,12 @@ public class AppAccountModel {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	@Override
+	public String toString() {
+		return "AppAccountModel [firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
+				+ ", phoneNo=" + phoneNo + ", ssn=" + ssn + ", emailId=" + emailId + ", password=" + password
+				+ ", gender=" + gender + ", role=" + role + "]";
 	}
 	
 }

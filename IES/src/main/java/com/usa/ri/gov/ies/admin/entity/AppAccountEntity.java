@@ -27,28 +27,31 @@ public class AppAccountEntity {
 	@GeneratedValue
 	private int appId;
 	
-	@Column(nullable=false)
+	@Column(name="First_Name")
 	private String firstName;
 	
-	@Column(nullable=false)
+	@Column(name="Last_Name")
 	private String lastName;
 	
-	@Column(nullable=false)
+	@Column(name="Date_Of_Birth")
+	private String dateOfBirth;
+	
+	@Column(name="Gender")
 	private String gender;
 	
-	@Column(unique=true)
+	@Column(name="Phone_No")
 	private String phoneNO;
 	
-	@Column(unique=false)
+	@Column(unique=true,name="Email_Id")
 	private String emailId;
 	
-	@Column(nullable=false)
+	@Column(name="SSN",unique=true)
 	private String ssn;
 	
-	@Column(nullable=false)
+	@Column(name="Password")
 	private String password;
 	
-	@Column(nullable=false)
+	@Column(name="Role")
 	private String role;
 	
 	@CreationTimestamp
@@ -60,7 +63,7 @@ public class AppAccountEntity {
 	private Date updated;
 	
 	
-	@Column(nullable=false)
+	@Column(name="Active_Sw")
 	private String activeSw;
 
 
@@ -182,10 +185,18 @@ public class AppAccountEntity {
 	public void setActiveSw(String activeSw) {
 		this.activeSw = activeSw;
 	}
+
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 	
-	/*@Column(unique=false)
-	private String deleteSw;
-*/
+	
 	
 
 }

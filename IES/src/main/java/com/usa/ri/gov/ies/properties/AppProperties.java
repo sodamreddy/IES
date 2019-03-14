@@ -5,10 +5,9 @@ import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 /**
  * this class store all applications properties(custom) into map object
@@ -16,12 +15,11 @@ import lombok.Setter;
  * @author sodam
  *
  */
-@ComponentScan
+@Component
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "ies")
 public class AppProperties {
-	@Getter
-	@Setter
+	
 	private Map<String, String> properties = new HashMap<String, String>();
 
 	public Map<String, String> getProperties() {

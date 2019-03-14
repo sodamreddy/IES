@@ -28,7 +28,7 @@ public class AdminController {
 	Logger logger=LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired(required=true)
-	private AppAccountService service;
+	private AppAccountService adminService;
 	
 	@Autowired(required=true)
 	private AppProperties properties;
@@ -46,21 +46,29 @@ public class AdminController {
 		initForm(model);
 		logger.debug("AdminController: appAccountRegForm Ended");
 		logger.info("AdminController: appAccountRegForm executed");
-		return "account_registration";
+		return "accReg";
 	}
 	
 	@RequestMapping(value="/accReg",method=RequestMethod.POST)
 	public String appAccountRegForm(@ModelAttribute("accModel") AppAccountModel accModel,Model model) {
+		System.out.println(accModel.toString());
 		//get properties 
 		Map<String,String> appProps= properties.getProperties();
 		try {
+			System.out.println(".....................................");
 			//call registerApplicant method
-			
+			boolean isSaved=adminService.registerApplicant(accModel);
+			if(isSaved) {
+				model.addAttribute(ApplicationConstants.SUCCESS,appProps.get(ApplicationConstants.SUCCESS) );
+			}
+			else {
+				model.addAttribute(ApplicationConstants.FAILED ,appProps.get(ApplicationConstants.FAILED) );
+			}//IF
 			
 		}catch(Exception e) {
-			model.addAttribute(ApplicationConstants.FAILED,appProps.get(ApplicationConstants.FAILED) );
+			logger.warn("Registration failed:"+e.getMessage());
 		}
-		return "account_registraion";
+		return "accReg";
 	}
 	
 	public void initForm(Model model){
