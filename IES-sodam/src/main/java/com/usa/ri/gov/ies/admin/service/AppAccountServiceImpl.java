@@ -97,12 +97,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return body.toString();
 	}
 
-	@Override
-	public String findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+   /**
+   * this method is used to register the plan details into db table
+   */
 	@Override
 	public boolean registerPlan(PlanModel planModel) {
 		logger.debug("AdminServiceImpl: registerPlan() started");
@@ -122,16 +119,19 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return (entity.getPlainId())>0?true:false;
 	}
 
+	/**
+	 * this method is used to check unique plan
+	 */
 	@Override
 	public String checkPlan(String plan) {
 		PlanEntity entity= planAccountRepository.findByPlanName(plan);
 		return entity==null?"unique":"Duplicate";
 	}
 	
-	/*
-	 * @Override public String findByEmail(String email) { //AppAccountEntity
-	 * entity=appAccountRepository.checkEmail(email);
-	 * 
-	 * return (entity.getEmailId()==null)?"Unique":"Duplicate"; }
-	 */
+	
+	  @Override public String findByEmail(String email) { //AppAccountEntity
+	   AppAccountEntity entity=appAccountRepository.checkEmail(email);
+	  
+	  return (entity.getEmailId()==null)?"Unique":"Duplicate"; }
+	 
 }

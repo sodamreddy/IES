@@ -39,7 +39,7 @@ public class AdminController {
 	/**
 	 * this method is used to load form page for registration
 	 * @param model
-	 * @return logicalViewName
+	 * @return String
 	 */
 	@RequestMapping(value="/accReg",method=RequestMethod.GET)
 	public String appAccountRegForm(Model model) {
@@ -53,6 +53,13 @@ public class AdminController {
 		return "accReg";
 	}
 	
+	
+	/**
+	 * this method is use to process the Account Registration Form 
+	 * @param accModel
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/accReg",method=RequestMethod.POST)
 	public String appAccountRegForm(@ModelAttribute("accModel") AppAccountModel accModel,Model model) {
 		logger.debug("AdminController: accRegFor() POST method started");
@@ -74,6 +81,11 @@ public class AdminController {
 		return "accReg";
 	}
 	
+	/**
+	 * this method  is used for loading create plan form page
+	 * @param model
+	 * @return String
+	 */
 	@RequestMapping(value="/crtPln",method=RequestMethod.GET)
 	public String createPlan(Model model) {
 		logger.debug("AdminController: createPlan() started");
@@ -84,6 +96,12 @@ public class AdminController {
 		return "creat_plan";
 	}
 	
+	/**
+	 * this method is used to process create plan Form 
+	 * @param planModel
+	 * @param model
+	 * @return String
+	 */
 	@RequestMapping(value="/crtPln",method=RequestMethod.POST)
 	public String createPlan(@ModelAttribute("planModel") PlanModel planModel,Model model) {
 		logger.debug("AdminController: createPlan() POST method started");
@@ -117,7 +135,7 @@ public class AdminController {
 	}//initForm(-)
 	
 	/**
-	 * this method is used to check availability  of model
+	 * this method is used to check availability  of unique email
 	 * @param HttpServlerRequest
 	 * @param model
 	 * @return
@@ -128,6 +146,12 @@ public class AdminController {
 		return adminService.findByEmail(email);
 	}//CheckEmailValidity(-,-)
 	
+	/**
+	 * this method is used to check the availability of unique plan
+	 * @param HttpServletRequest
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/crtPln/validPlan")
 	public @ResponseBody String planValidate(HttpServletRequest req,Model model) {
 		String plan=req.getParameter("planName");
