@@ -7,6 +7,8 @@ ies:
     failed: Registration failed
     regEmailFileName: Registration_Email_Template.txt
     regEmailSubject: IES Registration Completed
+    planCreatedSuccess: Plan Created Sucessfully
+    planCreationFailue: Plan Creation Failed
 logging:
   file: IES-APP-LOGS.log
   level:

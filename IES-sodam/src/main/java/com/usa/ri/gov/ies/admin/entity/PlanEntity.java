@@ -1,18 +1,50 @@
 package com.usa.ri.gov.ies.admin.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+/**
+ * this class represents plan Details to DB table
+ * @author sodam
+ *
+ */
+
+@Entity
+@Table(name="Plans_Master")
 public class PlanEntity {
-	private String plainId;
+	@Id
+	@GeneratedValue
+	@Column(name="Plan_Id")
+	private int plainId;
+	
+	@Column(name="Plan_Name",unique=true)
 	private String planName;
+	
+	@Column(name="Plan_Desc")
 	private String planDesc;
+	
+	@Column(name="Plan_Start")
 	private String planStart;
+	
+	@Column(name="Plan_End")
 	private String planEnd;
+	
+	@Column(name="Active_Sw")
 	private String activeSw;
+	
+	@Column(name="Created_By")
 	private String createdBy;
+	
+	@Column(name="Updated_By")
 	private String UpdatedBy;
-	public String getPlainId() {
+	
+	
+	public int getPlainId() {
 		return plainId;
 	}
-	public void setPlainId(String plainId) {
+	public void setPlainId(int plainId) {
 		this.plainId = plainId;
 	}
 	public String getPlanName() {

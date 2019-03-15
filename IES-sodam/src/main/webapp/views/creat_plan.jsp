@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,66 +14,77 @@
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
-	$(function(){
-				$('form[id="crePlanForm"])').validate({
-						rules:{
-									planName: 'required',
-									planDesc: 'required',
-									planStart: 'required',
-									planEnd:  'required',				
-							},//rules
-						messages:{
-							planName: 'Please enter Plan Name',
-							planDesc: 'Please enter Plan Description',
-							planStart: 'Select Plan Start Date',
-							planEnd: 'Select Plan End Date',
-							},//msgs
-
-						submitHandler:function(form){
-								form.submit();
-							},//submitHandler
-					});
-				$("#startDatePicker").datepicker({
-					changeMonth:true,
-					changeYear:true,
-					dateFormat:'dd/mm/yy'
-					});
-				$("#endDatePicker").datepicker({
-					changeMonth: true,
-					changeYear: true,
-					minDate:$("#startDatePicker").val()
-					});
+	$(function() {
+		$('form[id="crePlanForm"]').validate({
+			rules : {
+				planName : 'required',
+				planStart : 'required',
+				planEnd : 'required',
+				planDesc : {
+					required : true,
+					maxlength : 120,
+				},
+			},//rules
+			messages : {
+				planName : 'Please enter plan name',
+				planStart : 'please select plan start date',
+				planEnd : 'please select plan end date',
+				password : {
+					required : 'Please enter plan description',
+					minlength : 'plan description should not exeed 120 characters'
+				},
+			},//messages
+			submitHandler : function(form) {
+				form.submit();
+			}
 		});
+
+		/* 
+		$("#datepickerStart").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : 'dd/mm/yy'
+		}); */
+		
+		 var date=  $("#datepickerStart").val;
+		$("#datepickerEnd").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			minDate : date,
+			dateFormat : 'dd/mm/yy',
+			
+		}); 
+		
+	});
 </script>
 </head>
-
+<%@ include file="header.jsp" %>
+<h2>Enter Plan Details</h2>
 <body>
-	<form:form action="crtPln" method="POST" modelAttribute="planModel" id="crePlanForm">
+	<form:form action="crtPln" method="POST" id="crePlanForm"
+		modelAttribute="planModel">
 		<table>
 			<tr>
 				<td>Plan Name</td>
 				<td><form:input path="planName" /></td>
 			</tr>
 			<tr>
-				<td>Plan Description</td>
+				<td>Last Name</td>
 				<td><form:input path="planDesc" /></td>
 			</tr>
 			<tr>
 				<td>Plan Start Date</td>
-				<td><form:input path="planStart" id="startDatePicker" /></td>
+				<td><form:input path="planStart" id="datepickerStart" /></td>
 			</tr>
 			<tr>
 				<td>Plan End Date</td>
-				<td><form:input path="planEnd" id="endDatePicker" /></td>
+				<td><form:input path="planEnd" id="datepickerEnd" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Create Plan" /></td>
+				<td><input type="Submit" value="Create Plan" /></td>
+				<td><input type="reset" value="Rese" /></td>
 			</tr>
 		</table>
 	</form:form>
 </body>
 </html>
-
-
-<!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_subnav
- -->

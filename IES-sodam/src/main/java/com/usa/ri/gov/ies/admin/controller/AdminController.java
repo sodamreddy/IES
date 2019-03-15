@@ -54,11 +54,10 @@ public class AdminController {
 	
 	@RequestMapping(value="/accReg",method=RequestMethod.POST)
 	public String appAccountRegForm(@ModelAttribute("accModel") AppAccountModel accModel,Model model) {
-		System.out.println(accModel.toString());
+		logger.debug("AdminController: accRegFor() POST method started");
 		//get properties 
 		Map<String,String> appProps= properties.getProperties();
 		try {
-			System.out.println(".....................................");
 			//call registerApplicant method
 			boolean isSaved=adminService.registerApplicant(accModel);
 			if(isSaved) {
@@ -82,6 +81,27 @@ public class AdminController {
 		logger.debug("AdminController: createPlan() ended");
 		logger.info("AdminController: Create Plan form loaded sucessfully..");
 		return "creat_plan";
+	}
+	
+	@RequestMapping(value="/crtPlan",method=RequestMethod.POST)
+	public String createPlan(@ModelAttribute("planModel") PlanModel planModel,Model model) {
+		logger.debug("AdminController: createPlan() POST method started");
+		try {
+			//call registerApplicant method
+			boolean isSaved=adminService.registerPlan(planModel);
+			if(isSaved) {
+				model.addAttribute(ApplicationConstants.SUCCESS,properties.getProperties().get(ApplicationConstants.PLAN_CREATION_SUCCESS) );
+			}
+			else {
+				model.addAttribute(ApplicationConstants.FAILED ,properties.getProperties().get(ApplicationConstants.PLAN_CREATION_FAILURE) );
+			}//IF
+			
+		}catch(Exception e) {
+			logger.error("Registration failed:"+e.getMessage());
+		}
+		logger.debug("AdminController: createPlan() POST method ended");
+		logger.info("AdminController: plan cration completed");
+		return "create_plan";
 	}
 	
 	/**

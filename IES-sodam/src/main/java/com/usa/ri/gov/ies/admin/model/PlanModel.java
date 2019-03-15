@@ -1,7 +1,7 @@
 package com.usa.ri.gov.ies.admin.model;
 
 public class PlanModel {
-	private String plainId;
+	private int plainId;
 	private String planName;
 	private String planDesc;
 	private String planStart;
@@ -9,10 +9,10 @@ public class PlanModel {
 	private String activeSw;
 	private String createdBy;
 	private String UpdatedBy;
-	public String getPlainId() {
+	public int getPlainId() {
 		return plainId;
 	}
-	public void setPlainId(String plainId) {
+	public void setPlainId(int plainId) {
 		this.plainId = plainId;
 	}
 	public String getPlanName() {

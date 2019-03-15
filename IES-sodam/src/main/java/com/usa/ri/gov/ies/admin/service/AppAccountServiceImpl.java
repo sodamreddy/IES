@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.usa.ri.gov.ies.admin.entity.AppAccountEntity;
+import com.usa.ri.gov.ies.admin.entity.PlanEntity;
 import com.usa.ri.gov.ies.admin.model.AppAccountModel;
+import com.usa.ri.gov.ies.admin.model.PlanModel;
 import com.usa.ri.gov.ies.admin.repositary.AppAccountRepository;
+import com.usa.ri.gov.ies.admin.repositary.PlanAccountRepository;
 import com.usa.ri.gov.ies.constants.ApplicationConstants;
 import com.usa.ri.gov.ies.properties.AppProperties;
 import com.usa.ri.gov.ies.util.EmailUtil;
@@ -26,6 +29,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 
 	@Autowired(required = true)
 	private AppAccountRepository appAccountRepository;
+	
+	@Autowired(required=true)
+	private PlanAccountRepository planAccountRepository;
 	
 	@Autowired(required=true)
 	private AppProperties properties;
@@ -95,6 +101,25 @@ public class AppAccountServiceImpl implements AppAccountService {
 	public String findByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean registerPlan(PlanModel planModel) {
+		logger.debug("AdminServiceImpl: registerPlan() started");
+		PlanEntity entity= new PlanEntity();
+		//copy plan Details from model to Entity
+		BeanUtils.copyProperties(planModel, entity);
+		//set status of plan
+		entity.setActiveSw(ApplicationConstants.ACTIVE_SW);
+		//set plan Created By 
+		entity.setCreatedBy(ApplicationConstants.PLAN_CREATED_BY);
+		//set plan Updated by
+		entity.setUpdatedBy(ApplicationConstants.PLAN_UPDATED_BY);
+		//save entity to db table
+		entity = planAccountRepository.save(entity);
+		logger.debug("AdminServiceImpl: registerPlan() ended");
+		logger.info("AdminServiceImpl: registerPlan() Executed");
+		return (entity.getPlainId())>0?true:false;
 	}
 	
 	/*

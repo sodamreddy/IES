@@ -59,10 +59,11 @@
 			maxDate : new Date(),
 			dateFormat : 'dd/mm/yy'
 		});
+		
 	});
 </script>
 </head>
-
+<%@ include file="header.jsp" %>
 <body>
 	<h2>Registration Form</h2>
 	<form:form action="accReg" method="POST" id="accRegForm"
