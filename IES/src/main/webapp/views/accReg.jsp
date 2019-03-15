@@ -44,13 +44,15 @@
 				dateOfBirth : 'Please select dob',
 				gender : 'Please select Gender',
 				role : 'Please select a Role',
-				phoneNo : 'Please enter Phno',
+				phoneNo : 'Please enter Phone No',
 				ssn : 'Please enter SSN'
 			},//messages
 			submitHandler : function(form) {
 				form.submit();
 			}
 		});
+
+		
 		$("#datepicker").datepicker({
 			changeMonth : true,
 			changeYear : true,
@@ -80,7 +82,7 @@
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td><form:radiobutton path="gender" value="Male" /> <form:radiobutton
+				<td>Male<form:radiobutton path="gender" value="Male" />Female <form:radiobutton
 						path="gender" value="Female" /></td>
 			</tr>
 			<tr>

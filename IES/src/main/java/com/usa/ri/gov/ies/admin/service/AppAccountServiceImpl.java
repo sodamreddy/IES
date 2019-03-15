@@ -36,8 +36,8 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public boolean registerApplicant(AppAccountModel AppAccount) {
 		logger.debug("AdminServiceImpl: registerApplicant method Started");
-		String encrypted = null;
-		AppAccountEntity entity = null;
+		String encrypted ;
+		AppAccountEntity entity= new AppAccountEntity();
 		// copying model obj values into enitity obj
 		BeanUtils.copyProperties(AppAccount, entity);
 		// encrypt password
@@ -53,7 +53,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 			String fileName=properties.getProperties().get(ApplicationConstants.REG_EMAIL_FILE_NAME);
 			String subject= properties.getProperties().get(ApplicationConstants.REG_EMAIL_SUBJECT);
 			String text=getEmailBodyContent(AppAccount,fileName);
-			emailUtil.sendMail(entity.getEmailId(),subject,text);
+			emailUtil.sendEmail(entity.getEmailId(),subject,text);
 		}catch(Exception e) {
 			logger.warn(" AdminService: registerApplicant() "+e.getMessage());
 		}
@@ -88,5 +88,12 @@ public class AppAccountServiceImpl implements AppAccountService {
 			line = reader.readLine();
 		}
 		return body.toString();
+	}
+	
+	@Override
+	public String findByEmail(String email) {
+		AppAccountEntity entity=appAccountRepository.checkEmail(email);
+	
+		return (entity.getEmailId()==null)?"Unique":"Duplicate";
 	}
 }

@@ -19,18 +19,22 @@ spring:
     properties:
       hibernate:
         show_sql: true
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        format_sql: true   
+        dialect: org.hibernate.dialect.Oracle10gDialect #org.hibernate.dialect.MySQL5Dialect
   datasource:
-    url: jdbc:mysql://localhost:3306/sodam
-    username: root
-    password: pULLA143
-    driver-class-name: com.mysql.jdbc.Driver
+    username: system
+    password: manager
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:mysql://localhost:3306/sodam
+#    username: root
+#    password: pULLA143
+#    driver-class-name: com.mysql.jdbc.Driver
   mail:
     host: smtp.gmail.com
     port: 587
     username: pullareddy970@gmail.com
-    password: mail$143
+    password: xxxxx
     properties:
       mail:
         smtp:

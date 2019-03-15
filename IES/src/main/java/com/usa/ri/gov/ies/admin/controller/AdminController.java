@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class AdminController {
 		model.addAttribute("accModel",accModel);
 		initForm(model);
 		logger.debug("AdminController: appAccountRegForm Ended");
-		logger.info("AdminController: appAccountRegForm executed");
+		logger.info("AdminController: Registration Form loaded Sucessfully");
 		return "accReg";
 	}
 	
@@ -76,6 +78,11 @@ public class AdminController {
 		roleList.add("Admin");
 		roleList.add("Case Worker");
 		model.addAttribute("roleList", roleList);
+	}
+	
+	public String checkEmailValidity(HttpServletRequest req,Model model) {
+		String email=req.getParameter("emailId");
+		return adminService.findByEmail(email);
 	}
 
 }

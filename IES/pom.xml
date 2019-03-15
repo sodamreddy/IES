@@ -67,6 +67,21 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+   
+</dependency>
+
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    
+</dependency>
+
+
+		
 
 
 		<dependency>
