@@ -82,14 +82,7 @@ body {
       <a href="#">View Applications</a>
     </div>
   </div> 
-  <div class="subnav">
-    <button class="subnavbtn">Admin <i class="fa fa-caret-down"></i></button>
-    <div class="subnav-content">
-	<a href="/IES/accReg">Create Account</a> 
-	<a href="/crtPln">Create Plan</a>
-    <a href="#">View Plans</a>
-    </div>
-  </div> 
+ 
   <div class="subnav">
     <button class="subnavbtn">Data Collection<i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
@@ -97,6 +90,14 @@ body {
       <a href="#">View Cases</a>
     </div>
   </div>
+ <div class="subnav">
+    <button class="subnavbtn">Admin <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+	<a href="/IES/accReg">Create Account</a> 
+	<a href="/IES/crtPln">Create Plan</a>
+    <a href="#">View Plans</a>
+    </div>
+  </div> 
 </div>
 </body>
 </html>

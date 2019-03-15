@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.usa.ri.gov.ies.admin.model.AppAccountModel;
 import com.usa.ri.gov.ies.admin.model.PlanModel;
@@ -83,7 +84,7 @@ public class AdminController {
 		return "creat_plan";
 	}
 	
-	@RequestMapping(value="/crtPlan",method=RequestMethod.POST)
+	@RequestMapping(value="/crtPln",method=RequestMethod.POST)
 	public String createPlan(@ModelAttribute("planModel") PlanModel planModel,Model model) {
 		logger.debug("AdminController: createPlan() POST method started");
 		try {
@@ -101,7 +102,7 @@ public class AdminController {
 		}
 		logger.debug("AdminController: createPlan() POST method ended");
 		logger.info("AdminController: plan cration completed");
-		return "create_plan";
+		return "creat_plan";
 	}
 	
 	/**
@@ -126,5 +127,11 @@ public class AdminController {
 		String email=req.getParameter("emailId");
 		return adminService.findByEmail(email);
 	}//CheckEmailValidity(-,-)
+	
+	@RequestMapping(value="/crtPln/validPlan")
+	public @ResponseBody String planValidate(HttpServletRequest req,Model model) {
+		String plan=req.getParameter("planName");
+		return adminService.checkPlan(plan);
+	}
 
 }

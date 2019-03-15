@@ -29,7 +29,7 @@
 				planName : 'Please enter plan name',
 				planStart : 'please select plan start date',
 				planEnd : 'please select plan end date',
-				password : {
+				planDesc : {
 					required : 'Please enter plan description',
 					minlength : 'plan description should not exeed 120 characters'
 				},
@@ -39,27 +39,60 @@
 			}
 		});
 
-		/* 
-		$("#datepickerStart").datepicker({
+		
+		/* $("#datepickerStart").datepicker({
 			changeMonth : true,
 			changeYear : true,
 			dateFormat : 'dd/mm/yy'
-		}); */
-		
-		 var date=  $("#datepickerStart").val;
+		});   */
+	 
+	 /* $("#datepickerStart").datepicker({
+	        defaultDate: new Date(),
+	        minDate: new Date(),
+	        dateFormat : 'dd/mm/yy',
+	        onSelect: function(dateStr) 
+	        {         
+	            $("#datepickerEnd").val(dateStr);
+	            $("#datepickerEnd").datepicker("option",{ minDate: new Date(dateStr)})
+	        }
+	    }); */
+	    $("#datepickerStart").datepicker({
+	    	changeMonth : true,
+			changeYear : true,
+			dateFormat : 'dd/mm/yy',
+	    	  onSelect: function(dateText, inst){
+	    	     $("#datepickerEnd").datepicker("option","minDate",
+	    	     $("#datepickerStart").datepicker("getDate"));
+	    	  }
+	    	});
+
 		$("#datepickerEnd").datepicker({
 			changeMonth : true,
 			changeYear : true,
-			minDate : date,
 			dateFormat : 'dd/mm/yy',
-			
 		}); 
-		
+		$("#planName").blur(function(){
+			var enteredPlanName = $("#planName").val();
+			$.ajax({
+				url : window.location + "/validPlan",
+				data : "planName=" + enteredPlanName,
+				success : function(result) {
+					if (result == 'Duplicate') {
+						$("#planmsg").html("Plan Already Exists.!!");
+						$("#planName").focus();
+					} else {
+						$("#planmsg").html("");
+					}
+				}
+			});
+		});		
 	});
 </script>
 </head>
 <%@ include file="header.jsp" %>
 <h2>Enter Plan Details</h2>
+<font color="green">${success}</font>
+<font color="red">${failed}</font>
 <body>
 	<form:form action="crtPln" method="POST" id="crePlanForm"
 		modelAttribute="planModel">
@@ -67,9 +100,10 @@
 			<tr>
 				<td>Plan Name</td>
 				<td><form:input path="planName" /></td>
+				<td><font color='red'><span id="planmsg"></span></font></td>
 			</tr>
 			<tr>
-				<td>Last Name</td>
+				<td>Plan Description</td>
 				<td><form:input path="planDesc" /></td>
 			</tr>
 			<tr>
@@ -81,8 +115,8 @@
 				<td><form:input path="planEnd" id="datepickerEnd" /></td>
 			</tr>
 			<tr>
+			<td><input type="reset" value="Reset" /></td>
 				<td><input type="Submit" value="Create Plan" /></td>
-				<td><input type="reset" value="Rese" /></td>
 			</tr>
 		</table>
 	</form:form>

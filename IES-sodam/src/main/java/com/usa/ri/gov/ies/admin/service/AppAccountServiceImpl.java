@@ -121,6 +121,12 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminServiceImpl: registerPlan() Executed");
 		return (entity.getPlainId())>0?true:false;
 	}
+
+	@Override
+	public String checkPlan(String plan) {
+		PlanEntity entity= planAccountRepository.findByPlanName(plan);
+		return entity==null?"unique":"Duplicate";
+	}
 	
 	/*
 	 * @Override public String findByEmail(String email) { //AppAccountEntity
