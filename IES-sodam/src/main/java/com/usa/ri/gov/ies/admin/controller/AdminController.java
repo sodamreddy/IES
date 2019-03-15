@@ -141,10 +141,10 @@ public class AdminController {
 	 * @return
 	 */
 	
-	public String checkEmailValidity(HttpServletRequest req,Model model) {
-		String email=req.getParameter("emailId");
-		return adminService.findByEmail(email);
-	}//CheckEmailValidity(-,-)
+//	public String checkEmailValidity(HttpServletRequest req,Model model) {
+//		String email=req.getParameter("emailId");
+//		return adminService.findByEmail(email);
+//	}//CheckEmailValidity(-,-)
 	
 	/**
 	 * this method is used to check the availability of unique plan

@@ -127,11 +127,12 @@ public class AppAccountServiceImpl implements AppAccountService {
 		PlanEntity entity= planAccountRepository.findByPlanName(plan);
 		return entity==null?"unique":"Duplicate";
 	}
-	
-	
-	  @Override public String findByEmail(String email) { //AppAccountEntity
-	   AppAccountEntity entity=appAccountRepository.checkEmail(email);
-	  
-	  return (entity.getEmailId()==null)?"Unique":"Duplicate"; }
-	 
 }
+	
+//	
+//	  @Override public String findByEmail(String email) { //AppAccountEntity
+//	   AppAccountEntity entity=appAccountRepository.checkEmail(email);
+//	  
+//	  return (entity.getEmailId()==null)?"Unique":"Duplicate"; }
+//	 
+//}
