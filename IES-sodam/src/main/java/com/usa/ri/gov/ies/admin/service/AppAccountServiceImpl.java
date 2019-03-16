@@ -155,6 +155,20 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminServiceImpl: viewlanAccounts() executed");
 		return listPlan;
 	}
+
+	@Override
+	public boolean updateActiveSw(String planId,String activeSw) {
+		PlanEntity entity;
+		entity=planAccountRepository.findById(planId).get();
+		if(entity!=null) {
+			
+			entity.setActiveSw(activeSw);
+			planAccountRepository.save(entity);
+			
+		}
+		
+		return true;
+	}
 }
 	
 //	

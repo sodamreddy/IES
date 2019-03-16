@@ -176,5 +176,35 @@ public class AdminController {
 		String plan=req.getParameter("planName");
 		return adminService.isUniquePlan(plan);
 	}
+	@RequestMapping(value="/delete")
+	public String deletePlan(HttpServletRequest req,Model model) {
+		List<PlanModel> listPlan;
+		String planId= req.getParameter("planId");
+	boolean isDeleted=adminService.updateActiveSw(planId, ApplicationConstants.IN_ACTIVE_SW);
+		listPlan=adminService.viewPlanAccounts();
+		model.addAttribute(ApplicationConstants.PLAN_RECORDS,listPlan);
+		if(isDeleted) {
+			model.addAttribute(ApplicationConstants.SUCCESS, properties.getProperties().get(ApplicationConstants.PLAN_DELETE_SUCCESS));
+		}
+		else
+			model.addAttribute(ApplicationConstants.FAILED, properties.getProperties().get(ApplicationConstants.PLAN_DELETE_FAILED));
+
+		
+		return "view_plans";
+	}
+	@RequestMapping(value="/delete")
+	public String ActivatePlan(HttpServletRequest req,Model model) {
+		List<PlanModel> listPlan;
+		String planId= req.getParameter("planId");
+	boolean isDeleted=adminService.updateActiveSw(planId, ApplicationConstants.ACTIVE_SW);
+		listPlan=adminService.viewPlanAccounts();
+		model.addAttribute(ApplicationConstants.PLAN_RECORDS,listPlan);
+		if(isDeleted) {
+			model.addAttribute(ApplicationConstants.SUCCESS, properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_SUCCESS));
+		}
+		else
+			model.addAttribute(ApplicationConstants.FAILED, properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_FAILED));	
+		return "view_plans";
+	}
 
 }

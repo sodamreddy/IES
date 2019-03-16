@@ -25,5 +25,9 @@ public class ApplicationConstants {
 	public static final String PLAN_RECORDS="records";
 	public static final String PLAN_CREATED_BY = "Admin";
 	public static final String PLAN_UPDATED_BY = "Admin";
+	public static final String PLAN_ACTIVATE_SUCCESS="planActivationSuccess";
+	public static final String PLAN_ACTIVATE_FAILED="planActivationFailed";
+	public static final String PLAN_DELETE_SUCCESS="planDeletedSuccess";
+	public static final String PLAN_DELETE_FAILED="planDeletedFailed";
 
 }
