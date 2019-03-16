@@ -95,7 +95,7 @@ body {
     <div class="subnav-content">
 	<a href="/IES/accReg">Create Account</a> 
 	<a href="/IES/crtPln">Create Plan</a>
-    <a href="#">View Plans</a>
+    <a href="/IES/viewPlans">View Plans</a>
     </div>
   </div> 
 </div>

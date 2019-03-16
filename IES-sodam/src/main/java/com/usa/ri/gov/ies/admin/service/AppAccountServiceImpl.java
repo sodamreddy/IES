@@ -3,6 +3,8 @@ package com.usa.ri.gov.ies.admin.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,19 +115,45 @@ public class AppAccountServiceImpl implements AppAccountService {
 		//set plan Updated by
 		entity.setUpdatedBy(ApplicationConstants.PLAN_UPDATED_BY);
 		//save entity to db table
+		if(isUniquePlan(planModel.getPlanName())) {
 		entity = planAccountRepository.save(entity);
+		logger.info("AdminServiceImpl: isUniquePlan() executed given plan is unique");
+		return true;
+		}
 		logger.debug("AdminServiceImpl: registerPlan() ended");
 		logger.info("AdminServiceImpl: registerPlan() Executed");
-		return (entity.getPlainId())>0?true:false;
+		logger.info("AdminServiceImpl: isUniquePlan() executed  given plan is duplicate");
+		return false;
 	}
 
 	/**
 	 * this method is used to check unique plan
 	 */
 	@Override
-	public String checkPlan(String plan) {
+	public boolean isUniquePlan(String plan) {
 		PlanEntity entity= planAccountRepository.findByPlanName(plan);
-		return entity==null?"unique":"Duplicate";
+		return entity==null?true:false;
+	}
+	/**
+	 * this method gets plans records from db
+	 */
+	@Override
+	public List<PlanModel> viewPlanAccounts() {
+		logger.debug("AdminServiceImpl: viewlanAccounts() stared");
+		List<PlanModel> listPlan =new ArrayList<PlanModel>();
+		List<PlanEntity> listEntity;
+		//get the list of plans from database
+		listEntity=planAccountRepository.findAll();
+		//copy the plans list from entity to model objs
+		for (PlanEntity planEntity : listEntity) {
+			PlanModel planModel =new PlanModel();
+			BeanUtils.copyProperties(planEntity, planModel);
+			listPlan.add(planModel);
+		
+		}
+		logger.debug("AdminServiceImpl: viewlanAccounts() ended");
+		logger.info("AdminServiceImpl: viewlanAccounts() executed");
+		return listPlan;
 	}
 }
 	

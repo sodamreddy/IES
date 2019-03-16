@@ -112,6 +112,9 @@ public class AdminController {
 				model.addAttribute(ApplicationConstants.SUCCESS,properties.getProperties().get(ApplicationConstants.PLAN_CREATION_SUCCESS) );
 			}
 			else {
+				System.out.println("failed");
+				System.out.println(ApplicationConstants.FAILED );
+				System.out.println(properties.getProperties().get(ApplicationConstants.PLAN_CREATION_FAILURE));
 				model.addAttribute(ApplicationConstants.FAILED ,properties.getProperties().get(ApplicationConstants.PLAN_CREATION_FAILURE) );
 			}//IF
 			
@@ -119,8 +122,24 @@ public class AdminController {
 			logger.error("Registration failed:"+e.getMessage());
 		}
 		logger.debug("AdminController: createPlan() POST method ended");
-		logger.info("AdminController: plan cration completed");
+		logger.info("AdminController: plan creation completed");
 		return "creat_plan";
+	}
+	/**
+	 * this method gets the plans records and keep them in Model Scope
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/viewPlans",method=RequestMethod.GET)
+	public String viewPlans(Model model) {
+		logger.debug("AdminController: viewPlans() started");
+		List<PlanModel> listPlan;
+		listPlan=adminService.viewPlanAccounts();
+		//keeping the Plan list in Model 
+		model.addAttribute(ApplicationConstants.PLAN_RECORDS,listPlan);
+		logger.debug("AdminController: viewPlans() ended") ;
+		logger.info("AdminController: viewPlans() executed") ;
+		return "view_plans";
 	}
 	
 	/**
@@ -153,9 +172,9 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value="/crtPln/validPlan")
-	public @ResponseBody String planValidate(HttpServletRequest req,Model model) {
+	public @ResponseBody boolean planValidate(HttpServletRequest req,Model model) {
 		String plan=req.getParameter("planName");
-		return adminService.checkPlan(plan);
+		return adminService.isUniquePlan(plan);
 	}
 
 }

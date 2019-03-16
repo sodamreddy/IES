@@ -77,7 +77,7 @@
 				url : window.location + "/validPlan",
 				data : "planName=" + enteredPlanName,
 				success : function(result) {
-					if (result == 'Duplicate') {
+					if (result == false) {
 						$("#planmsg").html("Plan Already Exists.!!");
 						$("#planName").focus();
 					} else {
