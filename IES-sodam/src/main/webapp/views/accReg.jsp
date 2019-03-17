@@ -52,20 +52,22 @@
 			}
 		});
 
-		
 		$("#datepicker").datepicker({
 			changeMonth : true,
 			changeYear : true,
 			maxDate : new Date(),
 			dateFormat : 'dd/mm/yy'
 		});
-		
+
 	});
 </script>
 </head>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
 <body>
-	<h2>Registration Form</h2>
+	<h1>Registration Form</h1>
+	<font color="green">${success}</font>
+	<font color="red">${failed}</font>
+
 	<form:form action="accReg" method="POST" id="accRegForm"
 		modelAttribute="accModel">
 		<table>
@@ -83,8 +85,8 @@
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td>Male<form:radiobutton path="gender" value="Male" />Female <form:radiobutton
-						path="gender" value="Female" /></td>
+				<td>Male<form:radiobutton path="gender" value="Male" />Female
+					<form:radiobutton path="gender" value="Female" /></td>
 			</tr>
 			<tr>
 				<td>Email Id</td>
@@ -105,7 +107,7 @@
 			<tr>
 				<td>Role</td>
 				<td><form:select path="role" items="${roleList}"></form:select>
-				<%-- <td><form:select path="role">
+					<%-- <td><form:select path="role">
 						<form:option value="Admin" />
 						<form:option value="case worker" />
 					</form:select></td> --%>

@@ -26,16 +26,16 @@ import com.usa.ri.gov.ies.util.PasswordUtil;
 @Service("adminService")
 public class AppAccountServiceImpl implements AppAccountService {
 	private static Logger logger = LoggerFactory.getLogger(AppAccountServiceImpl.class);
-	@Autowired(required=true)
+	@Autowired(required = true)
 	private EmailUtil emailUtil;
 
 	@Autowired(required = true)
 	private AppAccountRepository appAccountRepository;
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
 	private PlanAccountRepository planAccountRepository;
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
 	private AppProperties properties;
 
 	/**
@@ -44,8 +44,8 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public boolean registerApplicant(AppAccountModel AppAccount) {
 		logger.debug("AdminServiceImpl: registerApplicant method Started");
-		String encrypted ;
-		AppAccountEntity entity= new AppAccountEntity();
+		String encrypted;
+		AppAccountEntity entity = new AppAccountEntity();
 		// copying model obj values into enitity obj
 		BeanUtils.copyProperties(AppAccount, entity);
 		// encrypt password
@@ -56,14 +56,14 @@ public class AppAccountServiceImpl implements AppAccountService {
 		entity.setActiveSw(ApplicationConstants.ACTIVE_SW);
 		// save entity record into table
 		entity = appAccountRepository.save(entity);
-		
+
 		try {
-			String fileName=properties.getProperties().get(ApplicationConstants.REG_EMAIL_FILE_NAME);
-			String subject= properties.getProperties().get(ApplicationConstants.REG_EMAIL_SUBJECT);
-			String text=getEmailBodyContent(AppAccount,fileName);
-			emailUtil.sendEmail(entity.getEmailId(),subject,text);
-		}catch(Exception e) {
-			logger.warn(" AdminService: registerApplicant() "+e.getMessage());
+			String fileName = properties.getProperties().get(ApplicationConstants.REG_EMAIL_FILE_NAME);
+			String subject = properties.getProperties().get(ApplicationConstants.REG_EMAIL_SUBJECT);
+			String text = getEmailBodyContent(AppAccount, fileName);
+			emailUtil.sendEmail(entity.getEmailId(), subject, text);
+		} catch (Exception e) {
+			logger.warn(" AdminService: registerApplicant() " + e.getMessage());
 		}
 		logger.debug("AdminServiceImpl: registerApplicant method Ended");
 		logger.info("AdminService: registerApplicant Executed");
@@ -99,26 +99,26 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return body.toString();
 	}
 
-   /**
-   * this method is used to register the plan details into db table
-   */
+	/**
+	 * this method is used to register the plan details into db table
+	 */
 	@Override
 	public boolean registerPlan(PlanModel planModel) {
 		logger.debug("AdminServiceImpl: registerPlan() started");
-		PlanEntity entity= new PlanEntity();
-		//copy plan Details from model to Entity
+		PlanEntity entity = new PlanEntity();
+		// copy plan Details from model to Entity
 		BeanUtils.copyProperties(planModel, entity);
-		//set status of plan
+		// set status of plan
 		entity.setActiveSw(ApplicationConstants.ACTIVE_SW);
-		//set plan Created By 
+		// set plan Created By
 		entity.setCreatedBy(ApplicationConstants.PLAN_CREATED_BY);
-		//set plan Updated by
+		// set plan Updated by
 		entity.setUpdatedBy(ApplicationConstants.PLAN_UPDATED_BY);
-		//save entity to db table
-		if(isUniquePlan(planModel.getPlanName())) {
-		entity = planAccountRepository.save(entity);
-		logger.info("AdminServiceImpl: isUniquePlan() executed given plan is unique");
-		return true;
+		// save entity to db table
+		if (isUniquePlan(planModel.getPlanName())) {
+			entity = planAccountRepository.save(entity);
+			logger.info("AdminServiceImpl: isUniquePlan() executed given plan is unique");
+			return true;
 		}
 		logger.debug("AdminServiceImpl: registerPlan() ended");
 		logger.info("AdminServiceImpl: registerPlan() Executed");
@@ -131,25 +131,26 @@ public class AppAccountServiceImpl implements AppAccountService {
 	 */
 	@Override
 	public boolean isUniquePlan(String plan) {
-		PlanEntity entity= planAccountRepository.findByPlanName(plan);
-		return entity==null?true:false;
+		PlanEntity entity = planAccountRepository.findByPlanName(plan);
+		return entity == null ? true : false;
 	}
+
 	/**
 	 * this method gets plans records from db
 	 */
 	@Override
 	public List<PlanModel> viewPlanAccounts() {
 		logger.debug("AdminServiceImpl: viewlanAccounts() stared");
-		List<PlanModel> listPlan =new ArrayList<PlanModel>();
+		List<PlanModel> listPlan = new ArrayList<PlanModel>();
 		List<PlanEntity> listEntity;
-		//get the list of plans from database
-		listEntity=planAccountRepository.findAll();
-		//copy the plans list from entity to model objs
+		// get the list of plans from database
+		listEntity = planAccountRepository.findAll();
+		// copy the plans list from entity to model objs
 		for (PlanEntity planEntity : listEntity) {
-			PlanModel planModel =new PlanModel();
+			PlanModel planModel = new PlanModel();
 			BeanUtils.copyProperties(planEntity, planModel);
 			listPlan.add(planModel);
-		
+
 		}
 		logger.debug("AdminServiceImpl: viewlanAccounts() ended");
 		logger.info("AdminServiceImpl: viewlanAccounts() executed");
@@ -157,24 +158,28 @@ public class AppAccountServiceImpl implements AppAccountService {
 	}
 
 	@Override
-	public boolean updateActiveSw(String planId,String activeSw) {
+	public boolean updateActiveSw(String planId, String activeSw) {
+		logger.debug("AppAccountServiceImple: updateActiveSw() started");
 		PlanEntity entity;
-		entity=planAccountRepository.findById(planId).get();
-		if(entity!=null) {
-			
+		entity = planAccountRepository.findById(Integer.parseInt(planId)).get();
+		if (entity != null) {
 			entity.setActiveSw(activeSw);
 			planAccountRepository.save(entity);
-			
+
 		}
-		
+		logger.debug("AppAccountServiceImpl: updateActiveSw() Ended");
+		logger.info("AppAccountServiceImple: ActiveSw updated");
 		return true;
 	}
+
+	/**
+	 * this method checks email is unique or duplicate
+	 * 
+	 */
+	@Override
+	public String findByEmail(String email) {
+		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
+		return (entity.getEmailId() == null) ? "Unique" : "Duplicate";
+	}
+
 }
-	
-//	
-//	  @Override public String findByEmail(String email) { //AppAccountEntity
-//	   AppAccountEntity entity=appAccountRepository.checkEmail(email);
-//	  
-//	  return (entity.getEmailId()==null)?"Unique":"Duplicate"; }
-//	 
-//}

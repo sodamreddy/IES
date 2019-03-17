@@ -160,10 +160,10 @@ public class AdminController {
 	 * @return
 	 */
 	
-//	public String checkEmailValidity(HttpServletRequest req,Model model) {
-//		String email=req.getParameter("emailId");
-//		return adminService.findByEmail(email);
-//	}//CheckEmailValidity(-,-)
+	public String checkEmailValidity(HttpServletRequest req,Model model) {
+		String email=req.getParameter("emailId");
+		return adminService.findByEmail(email);
+	}//CheckEmailValidity(-,-)
 	
 	/**
 	 * this method is used to check the availability of unique plan
@@ -192,14 +192,14 @@ public class AdminController {
 		
 		return "view_plans";
 	}
-	@RequestMapping(value="/delete")
+	@RequestMapping(value="/activate")
 	public String ActivatePlan(HttpServletRequest req,Model model) {
 		List<PlanModel> listPlan;
 		String planId= req.getParameter("planId");
-	boolean isDeleted=adminService.updateActiveSw(planId, ApplicationConstants.ACTIVE_SW);
+	boolean isActivated=adminService.updateActiveSw(planId, ApplicationConstants.ACTIVE_SW);
 		listPlan=adminService.viewPlanAccounts();
 		model.addAttribute(ApplicationConstants.PLAN_RECORDS,listPlan);
-		if(isDeleted) {
+		if(isActivated) {
 			model.addAttribute(ApplicationConstants.SUCCESS, properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_SUCCESS));
 		}
 		else

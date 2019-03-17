@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,7 +29,7 @@
 <%@ include file="header.jsp"%>
 <body>
 	<h2>View plans</h2>
-	<table border="1" id="planTable" >
+	<table border="1" id="planTable">
 		<thead>
 			<tr>
 				<td>S.No</td>
@@ -41,17 +41,23 @@
 			</tr>
 		</thead>
 		<tbody>
-				<c:forEach items="${records}" var="plan" varStatus="index">
+			<c:forEach items="${records}" var="plan" varStatus="index">
 				<tr>
-					<td><c:out value="${index.count}"/></td>
-					<td><c:out value="${plan.planName}"/></td>
-					<td><c:out value="${plan.planDesc}"/></td>
-					<td><c:out value="${plan.planStart}"/></td>
-					<td><c:out value="${plan.planEnd}"/></td>
-					<td><a href="#edit">Edit</a><c:if test="${plan.activeSw=='Y'}">
-					<a href="delete?planId=${plan.planId}" onclick="return confirmDelete()">Delete</a></c:if>
-					<c:if test="${plan.activeSw=='N'}"><a href="active?activeSw=${plan.planId}" onclick="return confirmActive()">Activate</a></c:if>
-				</c:forEach>
+					<td><c:out value="${index.count}" /></td>
+					<td><c:out value="${plan.planName}" /></td>
+					<td><c:out value="${plan.planDesc}" /></td>
+					<td><c:out value="${plan.planStart}" /></td>
+					<td><c:out value="${plan.planEnd}" /></td>
+					<td><a href="#edit">Edit</a>
+					<c:if test="${plan.activeSw=='Y'}">
+							<a href="delete?planId=${plan.planId}"
+								onclick="return confirmDelete()">Delete</a>
+						</c:if> <c:if test="${plan.activeSw=='N'}">
+							<a href="active?planId=${plan.planId}"
+								onclick="return confirmActive()">Activate</a>
+						</c:if></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>
