@@ -68,6 +68,7 @@ public class AdminController {
 		try {
 			//call registerApplicant method
 			boolean isSaved=adminService.registerApplicant(accModel);
+			initForm(model);
 			if(isSaved) {
 				model.addAttribute(ApplicationConstants.SUCCESS,appProps.get(ApplicationConstants.SUCCESS) );
 			}
@@ -160,7 +161,7 @@ public class AdminController {
 	 * @return
 	 */
 	
-	public String checkEmailValidity(HttpServletRequest req,Model model) {
+	public @ResponseBody String checkEmailValidity(HttpServletRequest req,Model model) {
 		String email=req.getParameter("emailId");
 		return adminService.findByEmail(email);
 	}//CheckEmailValidity(-,-)
