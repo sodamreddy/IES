@@ -54,16 +54,20 @@ public class AppAccountServiceImpl implements AppAccountService {
 		entity.setPassword(encrypted);
 		// set the status active
 		entity.setActiveSw(ApplicationConstants.ACTIVE_SW);
-		// save entity record into table
-		entity = appAccountRepository.save(entity);
+		
 
 		try {
+			// save entity record into table
+			entity = appAccountRepository.save(entity);
 			String fileName = properties.getProperties().get(ApplicationConstants.REG_EMAIL_FILE_NAME);
 			String subject = properties.getProperties().get(ApplicationConstants.REG_EMAIL_SUBJECT);
 			String text = getEmailBodyContent(AppAccount, fileName);
 			emailUtil.sendEmail(entity.getEmailId(), subject, text);
 		} catch (Exception e) {
+			logger.debug("AdminServiceImpl: registerApplicant method Ended");
+			logger.info("AdminService: registerApplicant Executed");
 			logger.warn(" AdminService: registerApplicant() " + e.getMessage());
+			return false;
 		}
 		logger.debug("AdminServiceImpl: registerApplicant method Ended");
 		logger.info("AdminService: registerApplicant Executed");
@@ -179,7 +183,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public String findByEmail(String email) {
 		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
-		return (entity.getEmailId() == null) ? "Unique" : "Duplicate";
+		return (entity.getEmailId())== null? "Unique" : "Duplicate";
 	}
 
 }

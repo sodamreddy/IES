@@ -19,7 +19,6 @@
 			rules : {
 				firstName : 'required',
 				lastName : 'required',
-				dataOfBirth : 'required',
 				gender : 'required',
 				ssn : 'required',
 				phoneNo : 'required',
@@ -32,6 +31,7 @@
 					required : true,
 					maxlength : 5,
 				},
+				dateOfBirth : 'required',
 			},//rules
 			messages : {
 				firstName : 'Please enter first name',
@@ -41,12 +41,21 @@
 					required : 'Please enter password',
 					minlength : 'Password must be at least 5 characters long'
 				},
-				dateOfBirth : 'Please select dob',
-				gender : 'Please select Gender',
+				dateOfBirth : 'Please select date',
+				gender : '     Please select Gender',
 				role : 'Please select a Role',
 				phoneNo : 'Please enter Phone No',
 				ssn : 'Please enter SSN'
 			},//messages
+			errorPlacement: function(error, element) {
+				if ( element.is(":radio") ) 
+	            {
+	                error.appendTo(element.parents('.gender') );
+	            }
+		        else { // This is the default behavior of the script for all fields
+		            error.insertAfter( element );
+		        }
+		    },
 			submitHandler : function(form) {
 				form.submit();
 			}
@@ -57,6 +66,23 @@
 			changeYear : true,
 			maxDate : new Date(),
 			dateFormat : 'dd/mm/yy'
+		});
+		
+		$("#emailId").blur(function(){
+			var givenEmail=$("#emailId").val();
+			$.ajax({
+				url: window.location+"/uniqueMail",
+				data:"email="+givenEmail,
+				success:function(result){
+					if(result=="Duplicate"){
+						$("#emailMsg").html("Email already exists..");
+						$("#emailId").focus();
+					}
+					else{
+						$("#emailMsg").html("");
+					}
+				}
+			});
 		});
 
 	});
@@ -83,14 +109,16 @@
 				<td>Date Of Birth</td>
 				<td><form:input path="dateOfBirth" id="datepicker" /></td>
 			</tr>
-			<tr>
+			<tr >
 				<td>Gender</td>
-				<td>Male<form:radiobutton path="gender" value="Male" />Female
+				<td class="gender">Male<form:radiobutton path="gender" value="Male" />Female
 					<form:radiobutton path="gender" value="Female" /></td>
 			</tr>
 			<tr>
 				<td>Email Id</td>
-				<td><form:input path="emailId" /></td>
+				<td><form:input path="emailId" />
+				<td><font color='red'><span id="emailMsg"></span></font></td>
+				</td>
 			</tr>
 			<tr>
 				<td>Password</td>

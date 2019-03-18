@@ -65,10 +65,10 @@ public class AdminController {
 		logger.debug("AdminController: accRegFor() POST method started");
 		//get properties 
 		Map<String,String> appProps= properties.getProperties();
+		initForm(model);
 		try {
 			//call registerApplicant method
 			boolean isSaved=adminService.registerApplicant(accModel);
-			initForm(model);
 			if(isSaved) {
 				model.addAttribute(ApplicationConstants.SUCCESS,appProps.get(ApplicationConstants.SUCCESS) );
 			}
@@ -149,6 +149,7 @@ public class AdminController {
 	 */
 	public void initForm(Model model){
 		List<String> roleList=new ArrayList<String>();
+		List<String> genderList= new ArrayList<String>();
 		roleList.add("Admin");
 		roleList.add("Case Worker");
 		model.addAttribute("roleList", roleList);
@@ -160,10 +161,15 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	
+	@RequestMapping(value="/accReg/uniqueMail")
 	public @ResponseBody String checkEmailValidity(HttpServletRequest req,Model model) {
-		String email=req.getParameter("emailId");
-		return adminService.findByEmail(email);
+		logger.debug("AdminController: checkEmailValidity() started");
+		String email=req.getParameter("email");
+		String isUnique= adminService.findByEmail(email);
+		logger.debug("AdminController: checkEmailValidity() ended");
+		logger.info("AdminController: checkEmailValidity() executed");
+		System.out.println(isUnique);
+		return isUnique;
 	}//CheckEmailValidity(-,-)
 	
 	/**
