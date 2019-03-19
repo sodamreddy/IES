@@ -28,7 +28,7 @@ $(function(){
 </head>
 <body>
 	<h2>Login</h2>
-	<form:form action="/login" modelAttribute=accModel id="loginForm">
+	<form:form action="/login" method="POST" modelAttribute="accModel" id="loginForm">
 		<table>
 			<tr>
 				<td>Email:</td>

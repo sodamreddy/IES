@@ -218,16 +218,22 @@ public class AdminController {
 	public String login(Model model){
 		logger.debug("AdminController: login() strated");
 		AppAccountModel accModel =new AppAccountModel();
-		model.addAttribute(accModel);
+		model.addAttribute("accModel",accModel);
 		logger.debug("AdminController: login() ended");
 		logger.info("AdminController: login form in loaded successfully");
 		return "login";
 	}//method:login
 	
-	public String login(@ModelAttribute("accModel")AppAccountModel accModel,Model model){
-		
-		
-		return "login";
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public String loginValidation(@ModelAttribute("accModel")AppAccountModel accModel,Model model){
+		String message=adminService.verifyLoginCredentials(accModel);
+		if(message!=null) {
+			model.addAttribute(ApplicationConstants.FAILED,message);
+			return "login";
+		}
+		else {
+			return message;
+		}
 	}
 
 }// class:AdminController

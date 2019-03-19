@@ -54,7 +54,6 @@ public class AppAccountServiceImpl implements AppAccountService {
 		entity.setPassword(encrypted);
 		// set the status active
 		entity.setActiveSw(ApplicationConstants.ACTIVE_SW);
-		
 
 		try {
 			// save entity record into table
@@ -183,23 +182,24 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public String findByEmail(String email) {
 		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
-		return (entity.getEmailId())== null? "Unique" : "Duplicate";
+		return (entity.getEmailId()) == null ? "Unique" : "Duplicate";
 	}
 
 	@Override
-	public String loginAccount(AppAccountModel accModel) {
-		AppAccountEntity entity;
-		entity=appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(), accModel.getPassword());
-		//validating credentials
-		if(entity!=null){
-			if((entity.getActiveSw())=={
+	public String verifyLoginCredentials(AppAccountModel accModel) {
+		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() started");
+		AppAccountEntity entity=null;
+		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(), PasswordUtil.encrypt(accModel.getPassword()));
+		// validating credentials
+		if (entity != null) {
+			if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
+				return (entity.getRole().toLowerCase())+"_dashboard";
+			} else {
 				
+				return ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT;
 			}
-			
 		}
-		else
-			return ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS;
-		return null;
+		return ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS;
 	}
 
 }
