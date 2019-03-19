@@ -15,4 +15,5 @@ public interface AppAccountService {
 	public boolean isUniquePlan(String plan);
 	public List<PlanModel> viewPlanAccounts();
 	public boolean updateActiveSw(String planId,String sw);
+	public String loginAccount(AppAccountModel accModel);
 }

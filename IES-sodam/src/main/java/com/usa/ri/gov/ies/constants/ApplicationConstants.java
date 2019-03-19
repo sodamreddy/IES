@@ -29,5 +29,6 @@ public class ApplicationConstants {
 	public static final String PLAN_ACTIVATE_FAILED="planActivationFailed";
 	public static final String PLAN_DELETE_SUCCESS="planDeletedSuccess";
 	public static final String PLAN_DELETE_FAILED="planDeletedFailed";
+	public static final String LOGIN_FAILED_INVALID_CREDENTIALS="loginFailedInvalidCredentials";
 
 }

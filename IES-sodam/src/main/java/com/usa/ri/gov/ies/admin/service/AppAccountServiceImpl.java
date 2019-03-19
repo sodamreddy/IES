@@ -186,4 +186,20 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return (entity.getEmailId())== null? "Unique" : "Duplicate";
 	}
 
+	@Override
+	public String loginAccount(AppAccountModel accModel) {
+		AppAccountEntity entity;
+		entity=appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(), accModel.getPassword());
+		//validating credentials
+		if(entity!=null){
+			if((entity.getActiveSw())=={
+				
+			}
+			
+		}
+		else
+			return ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS;
+		return null;
+	}
+
 }

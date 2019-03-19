@@ -9,8 +9,10 @@ import com.usa.ri.gov.ies.admin.entity.AppAccountEntity;
 
 public interface AppAccountRepository extends JpaRepository<AppAccountEntity, Serializable> {
 
-	@Query(name="from AppAccountEntity where emailId=:email")
+	@Query(name = "from AppAccountEntity where emailId=:email")
 	public AppAccountEntity findByEmailId(String email);
- 
-	
+
+	@Query(name="from AppAccountEntity where emailId=:email and password=:password")
+	public AppAccountEntity findByEmailIdAndPassword(String email,String password);
+
 }

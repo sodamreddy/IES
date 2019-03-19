@@ -213,5 +213,21 @@ public class AdminController {
 			model.addAttribute(ApplicationConstants.FAILED, properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_FAILED));	
 		return "view_plans";
 	}
+	
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String login(Model model){
+		logger.debug("AdminController: login() strated");
+		AppAccountModel accModel =new AppAccountModel();
+		model.addAttribute(accModel);
+		logger.debug("AdminController: login() ended");
+		logger.info("AdminController: login form in loaded successfully");
+		return "login";
+	}//method:login
+	
+	public String login(@ModelAttribute("accModel")AppAccountModel accModel,Model model){
+		
+		
+		return "login";
+	}
 
-}
+}// class:AdminController
