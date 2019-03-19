@@ -31,4 +31,5 @@ public class ApplicationConstants {
 	public static final String PLAN_DELETE_FAILED="planDeletedFailed";
 	public static final String LOGIN_FAILED_INVALID_CREDENTIALS="loginFailedInvalidCredentials";
 	public static final String LOGIN_FAILED_DEACTIVED_ACCOUNT="loginFailedDeActivated";
+	public static final String LOGIN_SUCCESS="loginSuccess";
 }

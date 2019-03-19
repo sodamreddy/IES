@@ -17,7 +17,7 @@ public class PlanEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="Plan_Id")
-	private int planId;
+	private int plainId;
 	
 	@Column(name="Plan_Name",unique=true)
 	private String planName;
@@ -42,10 +42,11 @@ public class PlanEntity {
 	
 	
 	public int getPlainId() {
-		return planId;
+		return plainId;
 	}
-	public void setPlainId(int planId) {
-		this.planId = planId;
+	public void setPlainId(int
+			plainId) {
+		this.plainId = plainId;
 	}
 	public String getPlanName() {
 		return planName;

@@ -13,8 +13,11 @@ ies:
     planActivationFailed: Plan is not Activated 
     planDeletedSuccess: Plan is De-Activated
     planDeletedFailed: plan is not De-Activated
+    loginSuccess: success
     loginFailedInvalidCredentials: Invalid credentials...
-    loginFailedDeActivated: Account was De-Activated...
+    loginFailedDeActivated: Account isS De-Activated...
+    pwdRecoverySubject: IES login Details
+    pwdRecoveryFileName: PasswordRecovery_Email_Template.txt
 logging:
   file: IES-APP-LOGS.log
   level:

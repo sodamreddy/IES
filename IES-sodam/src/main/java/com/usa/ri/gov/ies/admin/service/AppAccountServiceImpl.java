@@ -193,13 +193,29 @@ public class AppAccountServiceImpl implements AppAccountService {
 		// validating credentials
 		if (entity != null) {
 			if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
-				return (entity.getRole().toLowerCase())+"_dashboard";
-			} else {
-				
-				return ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT;
+				accModel.setRole(entity.getRole());
+				//login criteria satisfies return null
+				return properties.getProperties().get(ApplicationConstants.LOGIN_SUCCESS);
+			} else {				
+				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT);
 			}
 		}
-		return ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS;
+		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
+
+	/*@Override
+	public String passwordRecovery(String email) {
+		AppAccountEntity entity=null;
+		try {
+		entity=appAccountRepository.findByEmailId(email);
+		String password=PasswordUtil.decrypt(entity.getPassword());
+		String Subject 
+		//send login details to user 
+		emailUtil.sendEmail(email, subject, body);
+		}catch(Exception e) {
+			
+		}
+		return null;
+	}*/
 
 }

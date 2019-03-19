@@ -9,27 +9,29 @@
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
-$(function(){
-	$('form[id="loginForm"]').validate({
-		rules : {
-			emailId : 'required',
-			password : 'requred',
-		},
-		messages:{
-			emailId: 'please enter Email',
-			password: 'please enter Password',
-		},
-		submitHandler:function(form){
-			form.submit();
-		}
+	$(function() {
+		$('form[id="loginForm"]').validate({
+			rules : {
+				emailId : 'required',
+				password : 'requred',
+			},
+			messages : {
+				emailId : 'please enter Email',
+				password : 'please enter Password',
+			},
+			submitHandler : function(form) {
+				form.submit();
+			}
+		});
 	});
-});
 </script>
 </head>
 <body>
-	<h2>Login</h2>
-	<form:form action="/login" method="POST" modelAttribute="accModel" id="loginForm">
-		<table>
+	<h2 style="text-align: center;">Login</h2>
+	<font style="text-align: center;color: red">${failed}</font>
+	<form:form action="login" method="POST" modelAttribute="accModel"
+		id="loginForm">
+		<table align="center">
 			<tr>
 				<td>Email:</td>
 				<td><form:input path="emailId" /></td>
@@ -40,9 +42,9 @@ $(function(){
 			</tr>
 			<tr>
 				<td><input type="submit" value="login" /></td>
+				<td><a href="/forgot">Forgot Password</a></td>
 			</tr>
 		</table>
 	</form:form>
-	<a href="#">Forgot Password</a>
 </body>
 </html>

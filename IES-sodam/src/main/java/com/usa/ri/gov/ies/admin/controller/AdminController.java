@@ -227,13 +227,20 @@ public class AdminController {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String loginValidation(@ModelAttribute("accModel")AppAccountModel accModel,Model model){
 		String message=adminService.verifyLoginCredentials(accModel);
-		if(message!=null) {
+		if(message.equalsIgnoreCase(ApplicationConstants.SUCCESS)) {
+			return accModel.getRole().toLowerCase()+"_dashboard";
+		}
+		else {
 			model.addAttribute(ApplicationConstants.FAILED,message);
 			return "login";
 		}
-		else {
-			return message;
-		}
 	}
-
+	
+	/*@RequestMapping(value="/forgot",method=RequestMethod.GET)
+	public String furgotPassword(Model model,HttpServletRequest req) {
+		String email= req.getParameter("emailId");
+		Sting result=adminService.
+		return null;
+	}
+*/
 }// class:AdminController
