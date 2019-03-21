@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Account Registration</title>
+<title>Update Account</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -15,13 +15,12 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="accRegForm"]').validate({
+		$('form[id="accEditForm"]').validate({
 			rules : {
 				firstName : 'required',
 				lastName : 'required',
 				gender : 'required',
 				ssn : 'required',
-				phoneNo : 'required',
 				role : 'required',
 				emailId : {
 					required : true,
@@ -44,7 +43,6 @@
 				dateOfBirth : 'Please select date',
 				gender : '     Please select Gender',
 				role : 'Please select a Role',
-				phoneNo : 'Please enter Phone No',
 				ssn : 'Please enter SSN'
 			},//messages
 			errorPlacement: function(error, element) {
@@ -96,11 +94,11 @@
 </head>
 <%@ include file="header.jsp"%>
 <body>
-	<h1>Registration Form</h1>
+	<h1>Update Account</h1>
 	<font color="green">${success}</font>
 	<font color="red">${failed}</font>
 
-	<form:form action="accReg" method="POST" id="accRegForm"
+	<form:form action="accReg" method="POST" id="accEditForm"
 		modelAttribute="accModel">
 		<table>
 			<tr>
@@ -135,20 +133,12 @@
 				<td><form:password path="password" /></td>
 			</tr>
 			<tr>
-				<td>Phone No</td>
-				<td><form:input path="phoneNo" /></td>
-			</tr>
-			<tr>
 				<td>SSN</td>
 				<td><form:input path="ssn" /></td>
 			</tr>
 			<tr>
 				<td>Role</td>
 				<td><form:select path="role" items="${roleList}"></form:select>
-					<%-- <td><form:select path="role">
-						<form:option value="Admin" />
-						<form:option value="case worker" />
-					</form:select></td> --%>
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>

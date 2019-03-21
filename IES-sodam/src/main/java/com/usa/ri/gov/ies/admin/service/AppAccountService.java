@@ -18,4 +18,8 @@ public interface AppAccountService {
 	public boolean updateActiveSw(String planId,String sw);
 	public String verifyLoginCredentials(AppAccountModel accModel);
 	public String passwordRecovery(String email);
+	public String editAccountRecord(AppAccountModel accModel);
+	public AppAccountModel findByAccountId(int appId);
+	public PlanModel findByPlanId(int planId);
+	public String editPlanAccount(PlanModel planModel);
 }

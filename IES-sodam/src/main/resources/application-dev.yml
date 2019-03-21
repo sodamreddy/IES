@@ -7,30 +7,27 @@ ies:
     failed: Registration failed
     regEmailFileName: Registration_Email_Template.txt
     regEmailSubject: IES Registration Completed
+    accEditMailSubject: IES Account Detils Updated
+    accEditMailTemplateFile: Account_Edit_Email_Template.txt
+    accEditSuccess: Account details are successully edited
+    accEditFailed: Account details edit failed
     planCreatedSuccess: Plan Created Sucessfully
     planCreationFailue: Plan Creation Failed please enter valid inputs
+    planAccEditSuccess: Plan account details are successully edited
+    planAccEditFailed:   Plan account details edit failed
     planActivationSuccess: Plan is Activated
     planActivationFailed: Plan is not Activated 
     planDeletedSuccess: Plan is De-Activated
     planDeletedFailed: plan is not De-Activated
     loginSuccess: success
     loginFailedInvalidCredentials: Invalid credentials...
-<<<<<<< HEAD
-    loginFailedDeActivated: Account is De-Activated...
-    pwdRecoverySubject: IES login Details
-=======
     loginFailedDeActivated: Account isS De-Activated...
     pwdRecoverySubject: IES Account Recovered
->>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
     pwdRecoveryFileName: PasswordRecovery_Email_Template.txt
-<<<<<<< HEAD
     pwdRecoveryEmailSubject: IES Account Detials
-    pwdRecoverySuccess: Password Sucessfully recovered.. please check your email for Account Details
     pwdRecoveryFailure: Password Recovery failed 
-=======
     pwdRecoveryFailed: Enter valid registred email
     pwdRecoverySuccess: Password is successfully recovered please check your mail
->>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
 logging:
   file: IES-APP-LOGS.log
   level:

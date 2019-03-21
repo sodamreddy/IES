@@ -149,7 +149,11 @@ public class AdminController {
 		logger.info("AdminController: viewPlans() executed");
 		return "view_plans";
 	}
-
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/viewAppAccounts", method = RequestMethod.GET)
 	public String viewAppAccounts(Model model) {
 		logger.debug("AdminController: viewAppAccounts() started");
@@ -169,7 +173,6 @@ public class AdminController {
 	 */
 	public void initForm(Model model) {
 		List<String> roleList = new ArrayList<String>();
-		List<String> genderList = new ArrayList<String>();
 		roleList.add("Admin");
 		roleList.add("Case Worker");
 		model.addAttribute("roleList", roleList);
@@ -227,6 +230,12 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PLAN_DELETE_FAILED));
 		return "view_plans";
 	}
+	/**
+	 * 
+	 * @param req
+	 * @param model
+	 * @return
+	 */
 
 	@RequestMapping(value = "/activate")
 	public String ActivatePlan(HttpServletRequest req, Model model) {
@@ -243,7 +252,11 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_FAILED));
 		return "view_plans";
 	}
-
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginForm(Model model) {
 		logger.debug("AdminController: login() strated");
@@ -253,7 +266,13 @@ public class AdminController {
 		logger.info("AdminController: login form in loaded successfully");
 		return "login";
 	}// method:login
-
+	
+	/**
+	 * 
+	 * @param accModel
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginValidation(@ModelAttribute("accModel") AppAccountModel accModel, Model model) {
 		String message = adminService.verifyLoginCredentials(accModel);
@@ -264,12 +283,19 @@ public class AdminController {
 			return "login";
 		}
 	}
-
+	
+	
 	@RequestMapping(value = "/forgot")
 	public String forgotPassword() {
 		logger.info("AdminService: forgotPassword() form page loaded successfully");
 		return "forgot_password";
 	}
+	/**
+	 * 
+	 * @param model
+	 * @param req
+	 * @return
+	 */
 
 	@RequestMapping(value = "/forgot", method = RequestMethod.GET)
 	public String forgotPwdForm(Model model, HttpServletRequest req) {
@@ -284,6 +310,12 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_FAILED));
 		return "forgot_password";
 	}
+	/**
+	 * 
+	 * @param model
+	 * @param req
+	 * @return
+	 */
 
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public String forgotPassword(Model model, HttpServletRequest req) {
@@ -298,6 +330,63 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_FAILED));
 
 		return "forgot_password";
+	}
+	
+	
+
+	@RequestMapping(value="/editAcc",method=RequestMethod.GET)
+	public String editAccount(HttpServletRequest req, Model model){
+		logger.info( "AdminController: editAccount() started" );
+		AppAccountModel accModel;
+		int appId=Integer.parseInt(req.getParameter("appId"));
+		accModel= adminService.findByAccountId(appId);
+		model.addAttribute(ApplicationConstants.APP_ACCOUNT, accModel);
+		initForm(model);
+		logger.debug("AdminController: editAccount() ended");
+		logger.info("AdminController: editAccount() executed edit form loaded");
+		return "account_edit";
+	}
+	@RequestMapping(value="/editAcc",method=RequestMethod.POST)
+	public String editAccount(Model model,@ModelAttribute("accModel") AppAccountModel accModel) {
+		logger.debug("AdminController: editPlan() Post Method stared");
+		String status= adminService.editAccountRecord(accModel);
+		if(ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.ACC_EDIT_SUCCESS));
+		}
+		else {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.ACC_EDIT_FAILED));
+		}
+		logger.debug("AdminController: editAccount() Post Method ended");
+		return "view_accounts";
+	}
+	
+	@RequestMapping(value="/editPlan",method=RequestMethod.GET)
+	public String editPlan(HttpServletRequest req, Model model){
+		logger.debug( "AdminController: editAccount() started" );
+		PlanModel planModel;
+		int appId=Integer.parseInt(req.getParameter("appId"));
+		planModel= adminService.findByPlanId(appId);
+		model.addAttribute(ApplicationConstants.PLAN_ACCOUNT, planModel);
+		logger.debug("AdminController: editPlan() ended");
+		logger.info("AdminController: editPlan() executed edit form loaded");
+		return "plan_edit";
+	}
+	@RequestMapping(value="/editPlan",method=RequestMethod.POST)
+	public String editPlan(Model model,@ModelAttribute("planModel") PlanModel planModel) {
+		logger.debug("AdminController: editPlan() Post Method Started");
+		String status= adminService.editPlanAccount(planModel);
+		if(ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.PLAN_ACC_EDIT_SUCCESS));
+		}
+		else {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.PLAN_ACC_EDIT_FAILED));
+		}
+		logger.debug("AdminController: editPlan() Post Method ended");
+		return "view_plans";
 	}
 
 }// class:AdminController

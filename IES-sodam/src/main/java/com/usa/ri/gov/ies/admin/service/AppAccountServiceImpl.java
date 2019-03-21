@@ -243,5 +243,72 @@ public class AppAccountServiceImpl implements AppAccountService {
 		}
 		return ApplicationConstants.SUCCESS;
 	}
+	@Override
+	public AppAccountModel findByAccountId(int appId) {
+		logger.debug("AppAccountServiceImpl: findByAccountId() started");
+		AppAccountModel accModel =new AppAccountModel();
+		AppAccountEntity entity =appAccountRepository.findById(appId).get();
+		//copy enity to model obj
+		BeanUtils.copyProperties(entity, accModel);
+		logger.debug("AppAccountServiceImpl: findByAccountId() ended");
+		logger.info("AppAccountServiceImpl: findByAccountId() executed");
+		return accModel;
+	}
+
+	@Override
+	public String editAccountRecord(AppAccountModel accModel) {
+		logger.debug("AdminServiceImpl: editAccontRecord() started ");
+		AppAccountEntity entity=new AppAccountEntity();
+		//copy  model properties value into entity
+		BeanUtils.copyProperties(accModel, entity);
+		//set the encrypted password to entity
+		entity.setPassword(PasswordUtil.decrypt(accModel.getPassword()));
+		try {
+		//save the record		
+			entity=appAccountRepository.save(entity);
+		//send update mail confirmation
+			String subject = properties.getProperties().get(ApplicationConstants.ACC_EDIT_EMAIL_SUBJECT);
+			String fileName = properties.getProperties().get(ApplicationConstants.ACC_EDIT_EMAIL_FILENAME);
+			String body = getEmailBodyContent(accModel, fileName);
+			// send login details to user
+			emailUtil.sendEmail(accModel.getEmailId(), subject, body);
+		}catch(Exception e) {
+			logger.error("AdminServiceImpl: editAccontRecord() failed "+e);
+			return ApplicationConstants.FAILED;
+		}
+		logger.debug("AdminServiceImpl: editAccontRecord() ended ");
+		return ApplicationConstants.SUCCESS;
+	}
+
+	@Override
+	public PlanModel findByPlanId(int planId) {
+		logger.debug("AppAccountServiceImpl: findByPlanId() started");
+		PlanModel planModel =new PlanModel();
+		PlanEntity entity =planAccountRepository.findById(planId).get();
+		//copy enity to model obj
+		BeanUtils.copyProperties(entity, planModel);
+		logger.debug("AppAccountServiceImpl: findByplanId() ended");
+		logger.info("AppAccountServiceImpl: findByplanId() executed");
+		return planModel;
+	}
+
+	@Override
+	public String editPlanAccount(PlanModel planModel) {
+		logger.debug("AdminServiceImpl: editAccountRecord() started");
+		PlanEntity entity = new PlanEntity();
+		//copy  model properties value into entity
+		BeanUtils.copyProperties(planModel, entity);
+		try {
+		//save the record		
+			entity=planAccountRepository.save(entity);	
+		}catch(Exception e) {
+			logger.error("AdminServiceImpl: editAccontRecord() failed "+e);
+			return ApplicationConstants.FAILED;
+		}
+		logger.debug("AdminServiceImpl: editAccountRecord() ended");
+		return ApplicationConstants.SUCCESS;
+	}
+
+	
 
 }
