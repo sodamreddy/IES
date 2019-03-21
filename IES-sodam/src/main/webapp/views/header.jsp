@@ -96,8 +96,10 @@ body {
 	<a href="/IES/accReg">Create Account</a> 
 	<a href="/IES/crtPln">Create Plan</a>
     <a href="/IES/viewPlans">View Plans</a>
+    <a href="/IES/viewAppAccounts">View Accounts</a>
     </div>
-  </div> 
+  </div>
+  <a href="/IES/">Logout</a> 
 </div>
 </body>
 </html>

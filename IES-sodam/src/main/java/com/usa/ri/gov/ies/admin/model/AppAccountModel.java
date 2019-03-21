@@ -5,7 +5,8 @@ package com.usa.ri.gov.ies.admin.model;
 
 
 public class AppAccountModel {
-
+	
+	private String appId;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
@@ -15,6 +16,7 @@ public class AppAccountModel {
 	private String password;
 	private String gender;
 	private String role;
+	private String activeSw;
 	public String getFirstName() {
 		return firstName;
 	}
@@ -69,11 +71,23 @@ public class AppAccountModel {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public String getActiveSw() {
+		return activeSw;
+	}
+	public void setActiveSw(String activeSw) {
+		this.activeSw = activeSw;
+	}
 	@Override
 	public String toString() {
 		return "AppAccountModel [firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
 				+ ", phoneNo=" + phoneNo + ", ssn=" + ssn + ", emailId=" + emailId + ", password=" + password
 				+ ", gender=" + gender + ", role=" + role + "]";
+	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 	
 }

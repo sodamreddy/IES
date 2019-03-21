@@ -32,4 +32,8 @@ public class ApplicationConstants {
 	public static final String LOGIN_FAILED_INVALID_CREDENTIALS="loginFailedInvalidCredentials";
 	public static final String LOGIN_FAILED_DEACTIVED_ACCOUNT="loginFailedDeActivated";
 	public static final String LOGIN_SUCCESS="loginSuccess";
+	public static final String PWD_RECOVERY_EMAIL_FILE_NAME="pwdRecoveryFileName";
+	public static final String PWD_RECOVERY_EMAIL_SUBJECT="pwdRecoverySubject";
+	public static final String PWD_RECOVERY_FAILED="pwdRecoveryFailed";
+	public static final String PWD_RECOVERY_SUCCESS="pwdRecoverySuccess";
 }

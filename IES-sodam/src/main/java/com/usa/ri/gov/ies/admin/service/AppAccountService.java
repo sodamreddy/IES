@@ -14,7 +14,8 @@ public interface AppAccountService {
 	public boolean registerPlan(PlanModel planModel);
 	public boolean isUniquePlan(String plan);
 	public List<PlanModel> viewPlanAccounts();
+	public List<AppAccountModel> viewAppAccounts();
 	public boolean updateActiveSw(String planId,String sw);
 	public String verifyLoginCredentials(AppAccountModel accModel);
-//	public String passwordRecovery(String email);
+	public String passwordRecovery(String email);
 }
