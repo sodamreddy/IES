@@ -236,11 +236,22 @@ public class AdminController {
 		}
 	}
 	
-	/*@RequestMapping(value="/forgot",method=RequestMethod.GET)
-	public String furgotPassword(Model model,HttpServletRequest req) {
-		String email= req.getParameter("emailId");
-		Sting result=adminService.
-		return null;
+	@RequestMapping(value="/forgot")
+	public String forgotPwdForm() {
+			logger.info("AppAccountController: forgotPwdForm() loaded successfully");
+		return "forgot_password";
 	}
-*/
+	
+	@RequestMapping(value="/forgot",method=RequestMethod.GET)
+	public String forgotPwdForm(Model model,HttpServletRequest req) {
+		logger.debug("AppAccountController: forgotPwdForm()  started");
+		String email=req.getParameter("emailID");
+		String status=adminService.passwordRecovery(email);
+		if(ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
+			model.addAttribute(ApplicationConstants.SUCCESS,properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_SUCCESS));
+		}
+		else
+			model.addAttribute(ApplicationConstants.FAILED,properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_FAILED));
+	return "forgot_password";
+	}
 }// class:AdminController

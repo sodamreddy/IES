@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Password Recovery</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
@@ -26,10 +27,11 @@
 </script>
 </head>
 <body>
+	<h2 style="text-align:center">Account Recovery</h2>
 	<form:form method="GET" action="/forgot" id="forgotForm">
 	<table align="center">
 	<tr>
-		<td><input type="text" name="emailId" ></td>
+		<td>Email:<input type="text" name="emailId" ></td>
 	</tr>
 	<tr>
 		<td><input type="submit" value="Submit"/></td>

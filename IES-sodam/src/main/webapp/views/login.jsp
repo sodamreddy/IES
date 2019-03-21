@@ -6,20 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>login</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
-	$(function() {
-		$('form[id="loginForm"]').validate({
-			rules : {
-				emailId : 'required',
-				password : 'requred',
-			},
-			messages : {
-				emailId : 'please enter Email',
-				password : 'please enter Password',
-			},
-			submitHandler : function(form) {
+	$(function(){
+		$('form[id="loginForm"]').validate(funtion(){
+			rules: {
+				emailId: 'required',
+				password: 'required',
+			},//rules
+			messages:{
+				emailId:'Please Enter Email ',
+				password: 'please Enter Password',
+			},//messages
+			submitHandler: function(form){
 				form.submit();
 			}
 		});
@@ -42,7 +43,7 @@
 			</tr>
 			<tr>
 				<td><input type="submit" value="login" /></td>
-				<td><a href="/forgot">Forgot Password</a></td>
+				<td><a href="/IES/forgot">Forgot Password</a></td>
 			</tr>
 		</table>
 	</form:form>

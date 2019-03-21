@@ -16,5 +16,5 @@ public interface AppAccountService {
 	public List<PlanModel> viewPlanAccounts();
 	public boolean updateActiveSw(String planId,String sw);
 	public String verifyLoginCredentials(AppAccountModel accModel);
-//	public String passwordRecovery(String email);
+	public String passwordRecovery(String email);
 }

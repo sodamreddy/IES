@@ -203,19 +203,27 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
 
-	/*@Override
+	@Override
 	public String passwordRecovery(String email) {
+		logger.debug("AppAccountService: passwordrecovery() started");
 		AppAccountEntity entity=null;
+		AppAccountModel accModel=new AppAccountModel();
 		try {
 		entity=appAccountRepository.findByEmailId(email);
-		String password=PasswordUtil.decrypt(entity.getPassword());
-		String Subject 
+		BeanUtils.copyProperties(entity, accModel);
+		String password=PasswordUtil.decrypt(accModel.getPassword());
+		accModel.setPassword(password);
+		String fileName=properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_TEMPLETE);
+		String subject=properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_SUBJECT);
+		String body= getEmailBodyContent( accModel,fileName );
 		//send login details to user 
 		emailUtil.sendEmail(email, subject, body);
 		}catch(Exception e) {
-			
+			logger.error("AppAccountService: passwordRecovery() failed "+e);
+			return ApplicationConstants.FAILED;
 		}
-		return null;
-	}*/
+		logger.info("AppAccountService: passwordrecovery() executed Successfully");
+		return ApplicationConstants.SUCCESS;
+	}
 
 }
