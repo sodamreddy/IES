@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <h1>Admin DashBoard</h1>
 </body>
 </html>

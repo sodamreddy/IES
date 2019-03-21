@@ -188,41 +188,59 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public String verifyLoginCredentials(AppAccountModel accModel) {
 		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() started");
-		AppAccountEntity entity=null;
-		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(), PasswordUtil.encrypt(accModel.getPassword()));
+		AppAccountEntity entity = null;
+		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(),
+				PasswordUtil.encrypt(accModel.getPassword()));
 		// validating credentials
 		if (entity != null) {
 			if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
 				accModel.setRole(entity.getRole());
-				//login criteria satisfies return null
+				// login criteria satisfies return null
 				return properties.getProperties().get(ApplicationConstants.LOGIN_SUCCESS);
-			} else {				
+			} else {
 				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT);
 			}
 		}
 		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
 
-	@Override
-	public String passwordRecovery(String email) {
-		logger.debug("AppAccountService: passwordrecovery() started");
-		AppAccountEntity entity=null;
-		AppAccountModel accModel=new AppAccountModel();
-		try {
-		entity=appAccountRepository.findByEmailId(email);
-		BeanUtils.copyProperties(entity, accModel);
-		String password=PasswordUtil.decrypt(accModel.getPassword());
-		accModel.setPassword(password);
-		String fileName=properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_TEMPLETE);
-		String subject=properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_SUBJECT);
-		String body= getEmailBodyContent( accModel,fileName );
-		//send login details to user 
-		emailUtil.sendEmail(email, subject, body);
-		}catch(Exception e) {
-			logger.error("AppAccountService: passwordRecovery() failed "+e);
-			return ApplicationConstants.FAILED;
+	
+	public List<AppAccountModel> viewAppAccounts() {
+		logger.debug("AdminServiceImpl: viewlanAccounts() stared");
+		List<AppAccountModel> listAppAccounts = new ArrayList<AppAccountModel>();
+		List<AppAccountEntity> listEntity;
+		// get the list of plans from database
+		listEntity = appAccountRepository.findAll();
+		// copy the plans list from entity to model objs
+		for (AppAccountEntity appAccountEntity : listEntity) {
+			AppAccountModel appAccountModel = new AppAccountModel();
+			BeanUtils.copyProperties(appAccountEntity, appAccountModel);
+			listAppAccounts.add(appAccountModel);
 		}
 		logger.info("AppAccountService: passwordrecovery() executed Successfully");
+		logger.debug("AdminServiceImpl: viewAppAccounts() ended");
+		logger.info("AdminServiceImpl: viewAppAccounts() executed");
+		return listAppAccounts;
+	}
+
+	public String passwordRecovery(String email) {
+		AppAccountEntity entity = null;
+		AppAccountModel accModel = new AppAccountModel();
+		try {
+			entity = appAccountRepository.findByEmailId(email);
+			String password = PasswordUtil.decrypt(entity.getPassword());
+			entity.setPassword(password);
+			// copy enity properties to model properties
+			BeanUtils.copyProperties(entity, accModel);
+			String subject = properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_SUBJECT);
+			String fileName = properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_EMAIL_FILE_NAME);
+			String body = getEmailBodyContent(accModel, fileName);
+			// send login details to user
+			emailUtil.sendEmail(email, subject, body);
+		} catch (Exception e) {
+			logger.error("AdminService: passwordRecovery() failed" + e);
+			return ApplicationConstants.FAILED;
+		}
 		return ApplicationConstants.SUCCESS;
 	}
 

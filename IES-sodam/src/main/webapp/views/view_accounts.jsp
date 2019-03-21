@@ -28,32 +28,39 @@
 </head>
 <%@ include file="header.jsp"%>
 <body>
-	<h2>View plans</h2>
+	<h2>View Accounts</h2>
 	<table border="1" id="planTable">
 		<thead>
 			<tr>
 				<td>S.No</td>
-				<td>Plan Name</td>
-				<td>Plan Description</td>
-				<td>Plan Start Date</td>
-				<td>Plan End Date</td>
+				<td>First Name</td>
+				<td>Last Name</td>
+				<td>Date of Birth</td>
+				<td>Gender</td>
+				<td>Email </td>
+				<td>Role</td>
+				<td>SSN</td>
 				<td>Action</td>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${records}" var="plan" varStatus="index">
+			<c:forEach items="${records}" var="account" varStatus="index">
 				<tr>
 					<td><c:out value="${index.count}" /></td>
-					<td><c:out value="${plan.planName}" /></td>
-					<td><c:out value="${plan.planDesc}" /></td>
-					<td><c:out value="${plan.planStart}" /></td>
-					<td><c:out value="${plan.planEnd}" /></td>
-					<td><a href="#edit">Edit</a>
-					<c:if test="${plan.activeSw=='Y'}">
-							<a href="delete?planId=${plan.planId}"
+					<td><c:out value="${account.firstName}" /></td>
+					<td><c:out value="${account.lastName}" /></td>
+					<td><c:out value="${account.dateOfBirth}" /></td>
+					<td><c:out value="${account.gender}" /></td>
+					<td><c:out value="${account.emailId}" /></td>
+					<td><c:out value="${account.role}" /></td>
+					<td><c:out value="${account.ssn}" /></td>
+					<td>Action</td>	
+					<td><a href="editAcc?appId=${account.appId}">Edit</a>
+					<c:if test="${account.activeSw=='Y'}">
+							<a href="delete?appId=${account.appId}"
 								onclick="return confirmDelete()">Delete</a>
 						</c:if> <c:if test="${plan.activeSw=='N'}">
-							<a href="activate?planId=${plan.planId}"
+							<a href="activate?appId=${account.appId}"
 								onclick="return confirmActive()">Activate</a>
 						</c:if></td>
 				</tr>

@@ -12,8 +12,8 @@ public class PlanModel {
 	public int getPlanId() {
 		return planId;
 	}
-	public void setPlanId(int plainId) {
-		this.planId = plainId;
+	public void setPlanId(int planId) {
+		this.planId = planId;
 	}
 	public String getPlanName() {
 		return planName;
