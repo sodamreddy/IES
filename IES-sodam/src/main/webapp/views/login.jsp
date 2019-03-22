@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Password Recovery</title>
+<title>login</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
+
 	$(function() {
 		$('form[id="loginForm"]').validate({
 			rules : {

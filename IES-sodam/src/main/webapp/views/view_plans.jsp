@@ -48,7 +48,7 @@
 					<td><c:out value="${plan.planDesc}" /></td>
 					<td><c:out value="${plan.planStart}" /></td>
 					<td><c:out value="${plan.planEnd}" /></td>
-					<td><a href="#edit">Edit</a>
+					<td><a href="editPlan?planId=${plan.planId}">Edit</a>
 					<c:if test="${plan.activeSw=='Y'}">
 							<a href="delete?planId=${plan.planId}"
 								onclick="return confirmDelete()">Delete</a>

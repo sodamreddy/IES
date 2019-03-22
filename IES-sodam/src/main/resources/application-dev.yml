@@ -7,8 +7,14 @@ ies:
     failed: Registration failed
     regEmailFileName: Registration_Email_Template.txt
     regEmailSubject: IES Registration Completed
+    accEditMailSubject: IES Account Detils Updated
+    accEditMailTemplateFile: Account_Edit_Email_Template.txt
+    accEditSuccess: Account details are successully edited
+    accEditFailed: Account details edit failed
     planCreatedSuccess: Plan Created Sucessfully
     planCreationFailue: Plan Creation Failed please enter valid inputs
+    planAccEditSuccess: Plan account details are successully edited
+    planAccEditFailed:   Plan account details edit failed
     planActivationSuccess: Plan is Activated
     planActivationFailed: Plan is not Activated 
     planDeletedSuccess: Plan is De-Activated
@@ -18,6 +24,8 @@ ies:
     loginFailedDeActivated: Account isS De-Activated...
     pwdRecoverySubject: IES Account Recovered
     pwdRecoveryFileName: PasswordRecovery_Email_Template.txt
+    pwdRecoveryEmailSubject: IES Account Detials
+    pwdRecoveryFailure: Password Recovery failed 
     pwdRecoveryFailed: Enter valid registred email
     pwdRecoverySuccess: Password is successfully recovered please check your mail
 logging:

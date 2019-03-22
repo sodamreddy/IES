@@ -6,7 +6,7 @@ package com.usa.ri.gov.ies.admin.model;
 
 public class AppAccountModel {
 	
-	private String appId;
+	private int appId;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
@@ -83,10 +83,10 @@ public class AppAccountModel {
 				+ ", phoneNo=" + phoneNo + ", ssn=" + ssn + ", emailId=" + emailId + ", password=" + password
 				+ ", gender=" + gender + ", role=" + role + "]";
 	}
-	public String getAppId() {
+	public int getAppId() {
 		return appId;
 	}
-	public void setAppId(String appId) {
+	public void setAppId(int appId) {
 		this.appId = appId;
 	}
 	

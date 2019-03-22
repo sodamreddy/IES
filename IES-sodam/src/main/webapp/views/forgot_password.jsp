@@ -27,8 +27,8 @@
 </head>
 <body>
 	<h2 style="text-align: center;">Recover Password</h2>
-		<font style="text-align: center;color: green">${success}</font>
-	<font style="text-align: center;color: red">${failed}</font>
+	<font style="text-align: center; color: green">${success}</font>
+	<font style="text-align: center; color: red">${failed}</font>
 	<form:form method="POST" action="forgot" id="forgotForm">
 		<table align="center">
 			<tr>

@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="crePlanForm"]').validate({
+		$('form[id="planEditForm"]').validate({
 			rules : {
 				planName : 'required',
 				planStart : 'required',
@@ -104,7 +104,7 @@
 			</tr>
 			<tr>
 				<td>Plan Description</td>
-				<td><form:input path="planDesc" /></td>
+				<td><form:textarea path="planDesc" /></td>
 			</tr>
 			<tr>
 				<td>Plan Start Date</td>
@@ -116,7 +116,7 @@
 			</tr>
 			<tr>
 			<td><input type="reset" value="Reset" /></td>
-				<td><input type="Submit" value="Create Plan" /></td>
+				<td><input type="Submit" value="Update Plan" /></td>
 			</tr>
 		</table>
 	</form:form>
