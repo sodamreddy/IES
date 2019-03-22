@@ -169,7 +169,6 @@ public class AdminController {
 	 */
 	public void initForm(Model model) {
 		List<String> roleList = new ArrayList<String>();
-		List<String> genderList = new ArrayList<String>();
 		roleList.add("Admin");
 		roleList.add("Case Worker");
 		model.addAttribute("roleList", roleList);

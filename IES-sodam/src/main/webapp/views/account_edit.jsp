@@ -82,7 +82,7 @@
 					if(result=="Duplicate"){
 						$("#emailMsg").html("Email already exists..");
 						$("#emailId").focus();
-						$("#createAcnBtn").prop("disabled",true}
+						$("#createAcnBtn").prop("disabled",true)
 					else{
 						$("#emailMsg").html("");
 						$("#createAcnBtn").prop("disabled",false)
@@ -96,7 +96,7 @@
 </head>
 <%@ include file="header.jsp"%>
 <body>
-	<h1>Registration Form</h1>
+	<h1>Account Edit</h1>
 	<font color="green">${success}</font>
 	<font color="red">${failed}</font>
 
@@ -145,10 +145,6 @@
 			<tr>
 				<td>Role</td>
 				<td><form:select path="role" items="${roleList}"></form:select>
-					<%-- <td><form:select path="role">
-						<form:option value="Admin" />
-						<form:option value="case worker" />
-					</form:select></td> --%>
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
