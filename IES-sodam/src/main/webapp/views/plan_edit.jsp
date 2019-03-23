@@ -106,7 +106,7 @@
 			</tr>
 			<tr>
 				<td>Plan Name</td>
-				<td><form:input path="planName" /></td>
+				<td><form:input path="planName"  readonly="true"/></td>
 				<td><font color='red'><span id="planmsg"></span></font></td>
 			</tr>
 			<tr>
@@ -121,6 +121,9 @@
 				<td>Plan End Date</td>
 				<td><form:input path="planEnd" id="datepickerEnd" /></td>
 			</tr>
+				<tr><td><form:hidden path="activeSw"/></td></tr>
+			   <tr><td><form:hidden path="createdBy"/></td></tr>
+			   <tr><td><form:hidden path="updatedBy"/></td></tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
 				<td><input type="Submit" value="Update Plan" /></td>

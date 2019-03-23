@@ -8,7 +8,7 @@ public class PlanModel {
 	private String planEnd;
 	private String activeSw;
 	private String createdBy;
-	private String UpdatedBy;
+	private String updatedBy;
 	public int getPlanId() {
 		return planId;
 	}
@@ -52,10 +52,11 @@ public class PlanModel {
 		this.createdBy = createdBy;
 	}
 	public String getUpdatedBy() {
-		return UpdatedBy;
+		return updatedBy;
 	}
 	public void setUpdatedBy(String updatedBy) {
-		UpdatedBy = updatedBy;
+		this.updatedBy = updatedBy;
 	}
+	
 	
 }

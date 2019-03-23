@@ -386,6 +386,7 @@ public class AdminController {
 	public String editAccount(Model model,@ModelAttribute("accModel") AppAccountModel accModel) {
 		logger.debug("AdminController: editPlan() Post Method stared");
 		String status= adminService.editAccountRecord(accModel);
+		initForm(model);
 		if(ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
 			model.addAttribute(ApplicationConstants.SUCCESS,
 					properties.getProperties().get(ApplicationConstants.ACC_EDIT_SUCCESS));
@@ -429,7 +430,7 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PLAN_ACC_EDIT_SUCCESS));
 		}
 		else {
-			model.addAttribute(ApplicationConstants.SUCCESS,
+			model.addAttribute(ApplicationConstants.FAILED,
 					properties.getProperties().get(ApplicationConstants.PLAN_ACC_EDIT_FAILED));
 		}
 		logger.debug("AdminController: editPlan() Post Method ended");

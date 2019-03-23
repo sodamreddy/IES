@@ -221,18 +221,22 @@ public class AppAccountServiceImpl implements AppAccountService {
 	public String verifyLoginCredentials(AppAccountModel accModel) {
 		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() started");
 		AppAccountEntity entity = null;
-		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(),
-				PasswordUtil.encrypt(accModel.getPassword()));
+		String decryptedPwd=PasswordUtil.encrypt(accModel.getPassword());
+		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(),decryptedPwd);
 		// validating credentials
 		if (entity != null) {
+			if(accModel.getPassword().equals(decryptedPwd)) {
 			if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
 				accModel.setRole(entity.getRole());
 				// login criteria satisfies return null
 				return properties.getProperties().get(ApplicationConstants.LOGIN_SUCCESS);
 			} else {
 				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT);
-			}
+			}//else
 		}
+			else 
+				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
+		}//if
 		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
 
@@ -347,7 +351,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 		BeanUtils.copyProperties(planModel, entity);
 		try {
 		//save the record		
-			entity=planAccountRepository.save(entity);	
+			entity=planAccountRepository.save(entity );	
 		}catch(Exception e) {
 			logger.error("AdminServiceImpl: editPlanAccount() failed "+e);
 			return ApplicationConstants.FAILED;
