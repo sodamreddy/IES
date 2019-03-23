@@ -395,7 +395,7 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.ACC_EDIT_FAILED));
 		}
 		logger.debug("AdminController: editAccount() Post Method ended");
-		return "view_accounts";
+		return "account_edit";
 	}
 	/**
 	 * this method is used to load edit plan form page

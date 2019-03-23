@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
@@ -15,78 +15,32 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="editPlanForm"]').validate({
-			rules : {
-				planName : 'required',
-				planStart : 'required',
-				planEnd : 'required',
-				planDesc : {
-					required : true,
-					maxlength : 120,
-				},
-			},//rules
-			messages : {
-				planName : 'Please enter plan name',
-				planStart : 'please select plan start date',
-				planEnd : 'please select plan end date',
-				planDesc : {
-					required : 'Please enter plan description',
-					minlength : 'plan description should not exeed 120 characters'
-				},
-			},//messages
-			submitHandler : function(form) {
-				form.submit();
-			}
-			$("#planName").blur(function(){
-				var enteredPlanName = $("#planName").val();
-				$.ajax({
-					url : window.location + "/validPlan",
-					data : "planName=" + enteredPlanName,
-					success : function(result) {
-						if (result == false) {
-							$("#planmsg").html("Plan Already Exists.!!");
-							$("#planName").focus();
-						} else {
-							$("#planmsg").html("");
-						}
-					}
-				});
-			});		
-		});
-
-		
-		/* $("#datepickerStart").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			dateFormat : 'dd/mm/yy'
-		});   */
-	 
-	 /* $("#datepickerStart").datepicker({
-	        defaultDate: new Date(),
-	        minDate: new Date(),
-	        dateFormat : 'dd/mm/yy',
-	        onSelect: function(dateStr) 
-	        {         
-	            $("#datepickerEnd").val(dateStr);
-	            $("#datepickerEnd").datepicker("option",{ minDate: new Date(dateStr)})
-	        }
-	    }); */
-	    $("#datepickerStart").datepicker({
-	    	changeMonth : true,
-			changeYear : true,
-			dateFormat : 'dd/mm/yy',
-	    	  onSelect: function(dateText, inst){
-	    	     $("#datepickerEnd").datepicker("option","minDate",
-	    	     $("#datepickerStart").datepicker("getDate"));
-	    	  }
-	    	});
-
-		$("#datepickerEnd").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			dateFormat : 'dd/mm/yy',
-		}); 
-		$("#planName").blur(function(){
+		$('form[id="editPlanForm"]')
+				.validate(
+						{
+							rules : {
+								planName : 'required',
+								planStart : 'required',
+								planEnd : 'required',
+								planDesc : {
+									required : true,
+									maxlength : 120,
+								},
+							},//rules
+							messages : {
+								planName : 'Please enter plan name',
+								planStart : 'please select plan start date',
+								planEnd : 'please select plan end date',
+								planDesc : {
+									required : 'Please enter plan description',
+									minlength : 'plan description should not exeed 120 characters'
+								},
+							},//messages
+							submitHandler : function(form) {
+								form.submit();
+							}
+						});
+		$("#planName").blur(function() {
 			var enteredPlanName = $("#planName").val();
 			$.ajax({
 				url : window.location + "/validPlan",
@@ -100,18 +54,56 @@
 					}
 				}
 			});
-		});		
+		});
+
+		/* $("#datepickerStart").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : 'dd/mm/yy'
+		});   */
+
+		/* $("#datepickerStart").datepicker({
+		       defaultDate: new Date(),
+		       minDate: new Date(),
+		       dateFormat : 'dd/mm/yy',
+		       onSelect: function(dateStr) 
+		       {         
+		           $("#datepickerEnd").val(dateStr);
+		           $("#datepickerEnd").datepicker("option",{ minDate: new Date(dateStr)})
+		       }
+		   }); */
+		$("#datepickerStart").datepicker(
+				{
+					changeMonth : true,
+					changeYear : true,
+					dateFormat : 'dd/mm/yy',
+					onSelect : function(dateText, inst) {
+						$("#datepickerEnd").datepicker("option", "minDate",
+								$("#datepickerStart").datepicker("getDate"));
+					}
+				});
+
+		$("#datepickerEnd").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			dateFormat : 'dd/mm/yy',
+		});
+
 	});
 </script>
 </head>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
 <h2>Enter Plan Details</h2>
 <font color="green">${success}</font>
 <font color="red">${failed}</font>
 <body>
-	<form:form action="crtPln" method="POST" id="editPlanForm"
+	<form:form action="editPlan" method="POST" id="editPlanForm"
 		modelAttribute="planModel">
 		<table>
+			<tr>
+				<td>Plan Id</td>
+				<td><form:input path="planId" readonly="true" /></td>
+			</tr>
 			<tr>
 				<td>Plan Name</td>
 				<td><form:input path="planName" /></td>
@@ -130,7 +122,7 @@
 				<td><form:input path="planEnd" id="datepickerEnd" /></td>
 			</tr>
 			<tr>
-			<td><input type="reset" value="Reset" /></td>
+				<td><input type="reset" value="Reset" /></td>
 				<td><input type="Submit" value="Update Plan" /></td>
 			</tr>
 		</table>
