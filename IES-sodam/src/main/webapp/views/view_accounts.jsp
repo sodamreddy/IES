@@ -54,13 +54,12 @@
 					<td><c:out value="${account.emailId}" /></td>
 					<td><c:out value="${account.role}" /></td>
 					<td><c:out value="${account.ssn}" /></td>
-					<td>Action</td>	
 					<td><a href="editAcc?appId=${account.appId}">Edit</a>
 					<c:if test="${account.activeSw=='Y'}">
-							<a href="delete?appId=${account.appId}"
+							<a href="deleteAcc?appId=${account.appId}"
 								onclick="return confirmDelete()">Delete</a>
-						</c:if> <c:if test="${plan.activeSw=='N'}">
-							<a href="activate?appId=${account.appId}"
+						</c:if> <c:if test="${account.activeSw=='N'}">
+							<a href="activateAcc?appId=${account.appId}"
 								onclick="return confirmActive()">Activate</a>
 						</c:if></td>
 				</tr>

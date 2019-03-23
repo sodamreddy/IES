@@ -150,7 +150,7 @@ public class AdminController {
 		return "view_plans";
 	}
 	/**
-	 * 
+	 * this method gets Application Account records
 	 * @param model
 	 * @return
 	 */
@@ -203,23 +203,23 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/crtPln/validPlan")
+	@RequestMapping(value = {"/crtPln/validPlan","/editPlan/validPlan"})
 	public @ResponseBody boolean planValidate(HttpServletRequest req, Model model) {
 		String plan = req.getParameter("planName");
 		return adminService.isUniquePlan(plan);
 	}
 
 	/**
-	 * 
+	 * this method is used to deactivate the  plan 
 	 * @param req
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/delete")
+	@RequestMapping(value = "/deletePlan")
 	public String deletePlan(HttpServletRequest req, Model model) {
 		List<PlanModel> listPlan;
 		String planId = req.getParameter("planId");
-		boolean isDeleted = adminService.updateActiveSw(planId, ApplicationConstants.IN_ACTIVE_SW);
+		boolean isDeleted = adminService.updatePlanActiveSw(planId, ApplicationConstants.IN_ACTIVE_SW);
 		listPlan = adminService.viewPlanAccounts();
 		model.addAttribute(ApplicationConstants.PLAN_RECORDS, listPlan);
 		if (isDeleted) {
@@ -231,19 +231,19 @@ public class AdminController {
 		return "view_plans";
 	}
 	/**
-	 * 
+	 * this method is used to activate plan 
 	 * @param req
 	 * @param model
 	 * @return
 	 */
 
-	@RequestMapping(value = "/activate")
-	public String ActivatePlan(HttpServletRequest req, Model model) {
-		List<PlanModel> listPlan;
+	@RequestMapping(value = "/activatePlan")
+	public String activatePlan(HttpServletRequest req, Model model) {
+		List<PlanModel> listPlans;
 		String planId = req.getParameter("planId");
-		boolean isActivated = adminService.updateActiveSw(planId, ApplicationConstants.ACTIVE_SW);
-		listPlan = adminService.viewPlanAccounts();
-		model.addAttribute(ApplicationConstants.PLAN_RECORDS, listPlan);
+		boolean isActivated = adminService.updatePlanActiveSw(planId, ApplicationConstants.ACTIVE_SW);
+		listPlans = adminService.viewPlanAccounts();
+		model.addAttribute(ApplicationConstants.PLAN_RECORDS, listPlans);
 		if (isActivated) {
 			model.addAttribute(ApplicationConstants.SUCCESS,
 					properties.getProperties().get(ApplicationConstants.PLAN_ACTIVATE_SUCCESS));
@@ -253,7 +253,50 @@ public class AdminController {
 		return "view_plans";
 	}
 	/**
-	 * 
+	 * this method is used to deactivate the  plan 
+	 * @param req
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteAcc")
+	public String deleteAppAccount(HttpServletRequest req, Model model) {
+		List<AppAccountModel> listAppAccounts;
+		String appId = req.getParameter("appId");
+		boolean isDeleted = adminService.updateAccountActiveSw(appId, ApplicationConstants.IN_ACTIVE_SW);
+		listAppAccounts = adminService.viewAppAccounts();
+		model.addAttribute(ApplicationConstants.ACCOUNT_RECORDS, listAppAccounts);
+		if (isDeleted) {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.ACCOUNT_DELETE_SUCCESS));
+		} else
+			model.addAttribute(ApplicationConstants.FAILED,
+					properties.getProperties().get(ApplicationConstants.ACCOUNT_DELETE_FAILED));
+		return "view_accounts";
+	}
+	/**
+	 * this method is used to activate Application account 
+	 * @param req
+	 * @param model
+	 * @return
+	 */
+
+	@RequestMapping(value = "/activateAcc")
+	public String activateAppAccount(HttpServletRequest req, Model model) {
+		List<AppAccountModel> listAppAccounts;
+		String planId = req.getParameter("appId");
+		boolean isActivated = adminService.updateAccountActiveSw(planId, ApplicationConstants.ACTIVE_SW);
+		listAppAccounts = adminService.viewAppAccounts();
+		model.addAttribute(ApplicationConstants.ACCOUNT_RECORDS, listAppAccounts);
+		if (isActivated) {
+			model.addAttribute(ApplicationConstants.SUCCESS,
+					properties.getProperties().get(ApplicationConstants.ACCOUNT_ACTIVATE_SUCCESS));
+		} else
+			model.addAttribute(ApplicationConstants.FAILED,
+					properties.getProperties().get(ApplicationConstants.ACCOUNT_ACTIVATE_FAILED));
+		return "view_accounts";
+	}
+	/**
+	 * this method is used to load login form
 	 * @param model
 	 * @return
 	 */
@@ -268,7 +311,7 @@ public class AdminController {
 	}// method:login
 	
 	/**
-	 * 
+	 * this method is used to process the login into account
 	 * @param accModel
 	 * @param model
 	 * @return
@@ -285,7 +328,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * 
+	 * this method is used to load forgot password page
 	 * @return
 	 */
 	
@@ -294,33 +337,13 @@ public class AdminController {
 		logger.info("AdminService: forgotPassword() form page loaded successfully");
 		return "forgot_password";
 	}
+	
 	/**
-	 * 
+	 * this method is used to recover paswword
 	 * @param model
 	 * @param req
 	 * @return
 	 */
-
-	@RequestMapping(value = "/forgot", method = RequestMethod.GET)
-	public String forgotPwdForm(Model model, HttpServletRequest req) {
-		logger.debug("AppAccountController: forgotPwdForm()  started");
-		String email = req.getParameter("emailID");
-		String status = adminService.passwordRecovery(email);
-		if (ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
-			model.addAttribute(ApplicationConstants.SUCCESS,
-					properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_SUCCESS));
-		} else
-			model.addAttribute(ApplicationConstants.FAILED,
-					properties.getProperties().get(ApplicationConstants.PWD_RECOVERY_FAILED));
-		return "forgot_password";
-	}
-	/**
-	 * 
-	 * @param model
-	 * @param req
-	 * @return
-	 */
-
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public String forgotPassword(Model model, HttpServletRequest req) {
 		logger.info("AdminService: forgotPassword() started");
@@ -336,7 +359,7 @@ public class AdminController {
 		return "forgot_password";
 	}
 	/**
-	 * 
+	 * this method is used to load edit application account form page
 	 * @param req
 	 * @param model
 	 * @return
@@ -354,7 +377,7 @@ public class AdminController {
 		return "account_edit";
 	}
 	/**
-	 * 
+	 * this method is used to procees the edit Application account page
 	 * @param model
 	 * @param accModel
 	 * @return
@@ -375,24 +398,24 @@ public class AdminController {
 		return "view_accounts";
 	}
 	/**
-	 * 
+	 * this method is used to load edit plan form page
 	 * @param req
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/editPlan",method=RequestMethod.GET)
 	public String editPlan(HttpServletRequest req, Model model){
-		logger.debug( "AdminController: editAccount() started" );
+		logger.debug( "AdminController: editPlan() started" );
 		PlanModel planModel;
-		int appId=Integer.parseInt(req.getParameter("appId"));
-		planModel= adminService.findByPlanId(appId);
+		int planId=Integer.parseInt(req.getParameter("planId"));
+		planModel= adminService.findByPlanId(planId);
 		model.addAttribute(ApplicationConstants.PLAN_ACCOUNT, planModel);
 		logger.debug("AdminController: editPlan() ended");
 		logger.info("AdminController: editPlan() executed edit form loaded");
 		return "plan_edit";
 	}
 	/**
-	 * 
+	 * this method is used to process edit plan form page
 	 * @param model
 	 * @param planModel
 	 * @return
@@ -410,7 +433,7 @@ public class AdminController {
 					properties.getProperties().get(ApplicationConstants.PLAN_ACC_EDIT_FAILED));
 		}
 		logger.debug("AdminController: editPlan() Post Method ended");
-		return "view_plans";
+		return "plan_edit";
 	}
 
 }// class:AdminController

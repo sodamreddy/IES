@@ -72,7 +72,13 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminService: registerApplicant Executed");
 		return (entity.getAppId() > 0) ? true : false;
 	}// registerApplicant
-
+	/**
+	 * this method creates format of body for email
+	 * @param accModel
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 */
 	public String getEmailBodyContent(AppAccountModel accModel, String fileName) throws IOException {
 
 		BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -159,10 +165,34 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminServiceImpl: viewlanAccounts() executed");
 		return listPlan;
 	}
-
+	/**
+	 * this method updates the status of account
+	 */
 	@Override
-	public boolean updateActiveSw(String planId, String activeSw) {
-		logger.debug("AppAccountServiceImple: updateActiveSw() started");
+	public boolean updateAccountActiveSw(String appId, String activeSw) {
+		logger.debug("AppAccountServiceImple: updateAccountActiveSw() started");
+		AppAccountEntity entity;
+		entity = appAccountRepository.findById(Integer.parseInt(appId)).get();
+		if (entity != null) {
+			entity.setActiveSw(activeSw);
+			appAccountRepository.save(entity);
+			logger.debug("AppAccountServiceImpl: updateAccountActiveSw() Ended");
+			logger.info("AppAccountServiceImple: ActiveSw updated");
+			return true;
+		}
+		else {
+			logger.debug("AppAccountServiceImpl: updateAccountActiveSw() Ended");
+			logger.info("AppAccountServiceImple: ActiveSw updated");
+			return false;
+		}
+		
+	}
+	/**
+	 * this method updates the status of plan
+	 */
+	@Override
+	public boolean updatePlanActiveSw(String planId, String activeSw) {
+		logger.debug("AppAccountServiceImple: updatePlanActiveSw() started");
 		PlanEntity entity;
 		entity = planAccountRepository.findById(Integer.parseInt(planId)).get();
 		if (entity != null) {
@@ -170,7 +200,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 			planAccountRepository.save(entity);
 
 		}
-		logger.debug("AppAccountServiceImpl: updateActiveSw() Ended");
+		logger.debug("AppAccountServiceImpl: updatePlanActiveSw() Ended");
 		logger.info("AppAccountServiceImple: ActiveSw updated");
 		return true;
 	}
@@ -184,7 +214,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
 		return (entity.getEmailId()) == null ? "Unique" : "Duplicate";
 	}
-
+	/**
+	 * this method is used to very login credentials
+	 */
 	@Override
 	public String verifyLoginCredentials(AppAccountModel accModel) {
 		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() started");
@@ -204,7 +236,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
 
-	
+	/**
+	 * this method loads all application acconts from db
+	 */
 	public List<AppAccountModel> viewAppAccounts() {
 		logger.debug("AdminServiceImpl: viewlanAccounts() stared");
 		List<AppAccountModel> listAppAccounts = new ArrayList<AppAccountModel>();
@@ -223,6 +257,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		return listAppAccounts;
 	}
 
+	/**
+	 * this method process the account reovery
+	 */
 	public String passwordRecovery(String email) {
 		AppAccountEntity entity = null;
 		AppAccountModel accModel = new AppAccountModel();
@@ -243,6 +280,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		}
 		return ApplicationConstants.SUCCESS;
 	}
+	/**
+	 * this method used to load account by Id
+	 */
 	@Override
 	public AppAccountModel findByAccountId(int appId) {
 		logger.debug("AppAccountServiceImpl: findByAccountId() started");
@@ -254,7 +294,10 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AppAccountServiceImpl: findByAccountId() executed");
 		return accModel;
 	}
-
+	
+	/**
+	 * this method used to update the aplication account record in db
+	 */
 	@Override
 	public String editAccountRecord(AppAccountModel accModel) {
 		logger.debug("AdminServiceImpl: editAccontRecord() started ");
@@ -279,7 +322,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.debug("AdminServiceImpl: editAccontRecord() ended ");
 		return ApplicationConstants.SUCCESS;
 	}
-
+	/**
+	 * this method used to load plan details by Id
+	 */
 	@Override
 	public PlanModel findByPlanId(int planId) {
 		logger.debug("AppAccountServiceImpl: findByPlanId() started");
@@ -291,10 +336,12 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AppAccountServiceImpl: findByplanId() executed");
 		return planModel;
 	}
-
+	/**
+	 * this method is used to edit plan details in db
+	 */
 	@Override
 	public String editPlanAccount(PlanModel planModel) {
-		logger.debug("AdminServiceImpl: editAccountRecord() started");
+		logger.debug("AdminServiceImpl: editPlanAccount() started");
 		PlanEntity entity = new PlanEntity();
 		//copy  model properties value into entity
 		BeanUtils.copyProperties(planModel, entity);
@@ -302,13 +349,12 @@ public class AppAccountServiceImpl implements AppAccountService {
 		//save the record		
 			entity=planAccountRepository.save(entity);	
 		}catch(Exception e) {
-			logger.error("AdminServiceImpl: editAccontRecord() failed "+e);
+			logger.error("AdminServiceImpl: editPlanAccount() failed "+e);
 			return ApplicationConstants.FAILED;
 		}
-		logger.debug("AdminServiceImpl: editAccountRecord() ended");
+		logger.debug("AdminServiceImpl: editPlanAccount() ended");
 		return ApplicationConstants.SUCCESS;
 	}
 
 	
-
 }

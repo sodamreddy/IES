@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="planEditForm"]').validate({
+		$('form[id="editPlanForm"]').validate({
 			rules : {
 				planName : 'required',
 				planStart : 'required',
@@ -37,6 +37,21 @@
 			submitHandler : function(form) {
 				form.submit();
 			}
+			$("#planName").blur(function(){
+				var enteredPlanName = $("#planName").val();
+				$.ajax({
+					url : window.location + "/validPlan",
+					data : "planName=" + enteredPlanName,
+					success : function(result) {
+						if (result == false) {
+							$("#planmsg").html("Plan Already Exists.!!");
+							$("#planName").focus();
+						} else {
+							$("#planmsg").html("");
+						}
+					}
+				});
+			});		
 		});
 
 		
@@ -94,7 +109,7 @@
 <font color="green">${success}</font>
 <font color="red">${failed}</font>
 <body>
-	<form:form action="crtPln" method="POST" id="crePlanForm"
+	<form:form action="crtPln" method="POST" id="editPlanForm"
 		modelAttribute="planModel">
 		<table>
 			<tr>

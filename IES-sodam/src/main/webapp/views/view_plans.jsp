@@ -50,10 +50,10 @@
 					<td><c:out value="${plan.planEnd}" /></td>
 					<td><a href="editPlan?planId=${plan.planId}">Edit</a>
 					<c:if test="${plan.activeSw=='Y'}">
-							<a href="delete?planId=${plan.planId}"
+							<a href="deletePlan?planId=${plan.planId}"
 								onclick="return confirmDelete()">Delete</a>
 						</c:if> <c:if test="${plan.activeSw=='N'}">
-							<a href="activate?planId=${plan.planId}"
+							<a href="activatePlan?planId=${plan.planId}"
 								onclick="return confirmActive()">Activate</a>
 						</c:if></td>
 				</tr>

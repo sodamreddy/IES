@@ -31,6 +31,7 @@ public class ApplicationConstants {
 	public static final String PLAN_ACC_EDIT_SUCCESS="planAccEditSuccess";
 	public static final String PLAN_ACC_EDIT_FAILED="planAccEditFailed";
 	public static final String PLAN_RECORDS="records";
+	public static final String ACCOUNT_RECORDS="records";
 	public static final String PLAN_CREATED_BY = "Admin";
 	public static final String PLAN_UPDATED_BY = "Admin";
 	public static final String PLAN_ACTIVATE_SUCCESS="planActivationSuccess";
@@ -44,4 +45,8 @@ public class ApplicationConstants {
 	public static final String PWD_RECOVERY_EMAIL_SUBJECT="pwdRecoverySubject";
 	public static final String PWD_RECOVERY_FAILED="pwdRecoveryFailed";
 	public static final String PWD_RECOVERY_SUCCESS="pwdRecoverySuccess";
+	public static final Object ACCOUNT_ACTIVATE_SUCCESS = "appAccountActivationSuccess";
+	public static final Object ACCOUNT_DELETE_SUCCESS = "appAccountDeletedSuccess";
+	public static final Object ACCOUNT_DELETE_FAILED = "appAccountDeletedFailed";
+	public static final Object ACCOUNT_ACTIVATE_FAILED = "appAccountActivationFailed";
 }

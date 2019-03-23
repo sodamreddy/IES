@@ -1,5 +1,7 @@
 server:
   port: 2121
+
+#Propertis of Application
 ies:
   properties:
     message: welcome to IES-dev
@@ -11,10 +13,14 @@ ies:
     accEditMailTemplateFile: Account_Edit_Email_Template.txt
     accEditSuccess: Account details are successully edited
     accEditFailed: Account details edit failed
+    appAccountActivationSuccess: Account is Activated
+    appAccountActivationFailed: Account is not Activated 
+    appAccountDeletedSuccess: Account is De-Activated
+    appAccountDeletedFailed: Account is not De-Activated
     planCreatedSuccess: Plan Created Sucessfully
     planCreationFailue: Plan Creation Failed please enter valid inputs
-    planAccEditSuccess: Plan account details are successully edited
-    planAccEditFailed:   Plan account details edit failed
+    planAccEditSuccess: Plan account details are successully updated
+    planAccEditFailed:   Plan account details update failed
     planActivationSuccess: Plan is Activated
     planActivationFailed: Plan is not Activated 
     planDeletedSuccess: Plan is De-Activated
@@ -28,12 +34,16 @@ ies:
     pwdRecoveryFailure: Password Recovery failed 
     pwdRecoveryFailed: Enter valid registred email
     pwdRecoverySuccess: Password is successfully recovered please check your mail
+#logging configuration
 logging:
   file: IES-APP-LOGS.log
   level:
     root: INFO
     com.usa.ri.gov.ies: DEBUG
+    
+ #Spring 
 spring:
+  #database configuration
   jpa:
     hibernate:
       ddl-auto: update
