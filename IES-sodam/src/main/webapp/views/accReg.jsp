@@ -71,8 +71,8 @@
 		$("#emailId").blur(function() {
 			var givenEmail = $("#emailId").val();
 			$.ajax({
-				url : window.location + "/validPlan",
-				data : "emailId=" + email,
+				url : window.location + "/uniqueMail",
+				data : "emailId=" + givenEmail,
 				success : function(result) {
 					if (result == "Duplicate") {
 						$("#emailMsg").html("Email  Already Exists.!!");
@@ -116,7 +116,6 @@
 			</tr>
 			<tr>
 				<td>Email Id</td>
-
 				<td><form:input path="emailId" />
 				<td><font color='red'><span id="emailMsg"></span></font></td>
 			</tr>
@@ -138,11 +137,8 @@
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
-<<<<<<< HEAD
-				<td><input type="Submit" value="Register" /></td>
-=======
+
 				<td><input type="Submit" value="Register"/></td>
->>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
 			</tr>
 		</table>
 	</form:form>

@@ -188,7 +188,7 @@ public class AdminController {
 	@RequestMapping(value = "/accReg/uniqueMail")
 	public @ResponseBody String checkEmailValidity(HttpServletRequest req, Model model) {
 		logger.debug("AdminController: checkEmailValidity() started");
-		String email = req.getParameter("email");
+		String email = req.getParameter("emailId");
 		String isUnique = adminService.findByEmail(email);
 		logger.debug("AdminController: checkEmailValidity() ended");
 		logger.info("AdminController: checkEmailValidity() executed");

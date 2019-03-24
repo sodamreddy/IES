@@ -146,11 +146,8 @@
 			</tr>
 			<tr>
 				<td>Role</td>
-<<<<<<< HEAD
-				<td><form:select path="role" items="${roleList}"></form:select>
-=======
+
 				<td><form:select path="role" items="${roleList}"></form:select></td>
->>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
 			</tr>
 			<tr><td><form:hidden path="activeSw"/></td></tr>
 			<tr><td><form:hidden path="created"/></td></tr>

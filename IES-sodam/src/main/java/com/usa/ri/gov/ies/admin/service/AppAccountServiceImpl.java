@@ -72,8 +72,10 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminService: registerApplicant Executed");
 		return (entity.getAppId() > 0) ? true : false;
 	}// registerApplicant
+
 	/**
 	 * this method creates format of body for email
+	 * 
 	 * @param accModel
 	 * @param fileName
 	 * @return
@@ -165,6 +167,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 		logger.info("AdminServiceImpl: viewlanAccounts() executed");
 		return listPlan;
 	}
+
 	/**
 	 * this method updates the status of account
 	 */
@@ -179,14 +182,14 @@ public class AppAccountServiceImpl implements AppAccountService {
 			logger.debug("AppAccountServiceImpl: updateAccountActiveSw() Ended");
 			logger.info("AppAccountServiceImple: ActiveSw updated");
 			return true;
-		}
-		else {
+		} else {
 			logger.debug("AppAccountServiceImpl: updateAccountActiveSw() Ended");
 			logger.info("AppAccountServiceImple: ActiveSw updated");
 			return false;
 		}
-		
+
 	}
+
 	/**
 	 * this method updates the status of plan
 	 */
@@ -214,6 +217,7 @@ public class AppAccountServiceImpl implements AppAccountService {
 		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
 		return (entity.getEmailId()) == null ? "Unique" : "Duplicate";
 	}
+
 	/**
 	 * this method is used to very login credentials
 	 */
@@ -221,22 +225,31 @@ public class AppAccountServiceImpl implements AppAccountService {
 	public String verifyLoginCredentials(AppAccountModel accModel) {
 		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() started");
 		AppAccountEntity entity = null;
-		String decryptedPwd=PasswordUtil.encrypt(accModel.getPassword());
-		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(),decryptedPwd);
+		String encryptedPwd = PasswordUtil.encrypt(accModel.getPassword());
+
+		entity = appAccountRepository.findByEmailIdAndPassword(accModel.getEmailId(), encryptedPwd);
+
 		// validating credentials
 		if (entity != null) {
-			if(accModel.getPassword().equals(decryptedPwd)) {
-			if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
-				accModel.setRole(entity.getRole());
-				// login criteria satisfies return null
-				return properties.getProperties().get(ApplicationConstants.LOGIN_SUCCESS);
+			if (entity.getPassword().equals(encryptedPwd)) {
+				if ((entity.getActiveSw()).equalsIgnoreCase(ApplicationConstants.ACTIVE_SW)) {
+					accModel.setRole(entity.getRole());
+					// login criteria satisfies return null
+					logger.debug("AppAccountServiceImpl: verifyLoginCredentials() ended");
+
+					return properties.getProperties().get(ApplicationConstants.LOGIN_SUCCESS);
+				} else {
+					logger.debug("AppAccountServiceImpl: verifyLoginCredentials() ended");
+					return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT);
+				} // active condition
 			} else {
-				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_DEACTIVED_ACCOUNT);
-			}//else
-		}
-			else 
+				logger.debug("AppAccountServiceImpl: verifyLoginCredentials() ended");
+
 				return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
-		}//if
+			} // pwd condition
+		} // email availability
+		logger.debug("AppAccountServiceImpl: verifyLoginCredentials() ended");
+
 		return properties.getProperties().get(ApplicationConstants.LOGIN_FAILED_INVALID_CREDENTIALS);
 	}
 
@@ -284,62 +297,65 @@ public class AppAccountServiceImpl implements AppAccountService {
 		}
 		return ApplicationConstants.SUCCESS;
 	}
+
 	/**
 	 * this method used to load account by Id
 	 */
 	@Override
 	public AppAccountModel findByAccountId(int appId) {
 		logger.debug("AppAccountServiceImpl: findByAccountId() started");
-		AppAccountModel accModel =new AppAccountModel();
-		AppAccountEntity entity =appAccountRepository.findById(appId).get();
-		//copy enity to model obj
+		AppAccountModel accModel = new AppAccountModel();
+		AppAccountEntity entity = appAccountRepository.findById(appId).get();
+		// copy enity to model obj
 		BeanUtils.copyProperties(entity, accModel);
 		logger.debug("AppAccountServiceImpl: findByAccountId() ended");
 		logger.info("AppAccountServiceImpl: findByAccountId() executed");
 		return accModel;
 	}
-	
+
 	/**
 	 * this method used to update the aplication account record in db
 	 */
 	@Override
 	public String editAccountRecord(AppAccountModel accModel) {
 		logger.debug("AdminServiceImpl: editAccontRecord() started ");
-		AppAccountEntity entity=new AppAccountEntity();
-		//copy  model properties value into entity
+		AppAccountEntity entity = new AppAccountEntity();
+		// copy model properties value into entity
 		BeanUtils.copyProperties(accModel, entity);
-		//set the encrypted password to entity
-		entity.setPassword(PasswordUtil.decrypt(accModel.getPassword()));
+		// set the encrypted password to entity
+		entity.setPassword(PasswordUtil.encrypt(accModel.getPassword()));
 		try {
-		//save the record		
-			entity=appAccountRepository.save(entity);
-		//send update mail confirmation
+			// save the record
+			entity = appAccountRepository.save(entity);
+			// send update mail confirmation
 			String subject = properties.getProperties().get(ApplicationConstants.ACC_EDIT_EMAIL_SUBJECT);
 			String fileName = properties.getProperties().get(ApplicationConstants.ACC_EDIT_EMAIL_FILENAME);
 			String body = getEmailBodyContent(accModel, fileName);
 			// send login details to user
 			emailUtil.sendEmail(accModel.getEmailId(), subject, body);
-		}catch(Exception e) {
-			logger.error("AdminServiceImpl: editAccontRecord() failed "+e);
+		} catch (Exception e) {
+			logger.error("AdminServiceImpl: editAccontRecord() failed " + e);
 			return ApplicationConstants.FAILED;
 		}
 		logger.debug("AdminServiceImpl: editAccontRecord() ended ");
 		return ApplicationConstants.SUCCESS;
 	}
+
 	/**
 	 * this method used to load plan details by Id
 	 */
 	@Override
 	public PlanModel findByPlanId(int planId) {
 		logger.debug("AppAccountServiceImpl: findByPlanId() started");
-		PlanModel planModel =new PlanModel();
-		PlanEntity entity =planAccountRepository.findById(planId).get();
-		//copy enity to model obj
+		PlanModel planModel = new PlanModel();
+		PlanEntity entity = planAccountRepository.findById(planId).get();
+		// copy enity to model obj
 		BeanUtils.copyProperties(entity, planModel);
 		logger.debug("AppAccountServiceImpl: findByplanId() ended");
 		logger.info("AppAccountServiceImpl: findByplanId() executed");
 		return planModel;
 	}
+
 	/**
 	 * this method is used to edit plan details in db
 	 */
@@ -347,18 +363,17 @@ public class AppAccountServiceImpl implements AppAccountService {
 	public String editPlanAccount(PlanModel planModel) {
 		logger.debug("AdminServiceImpl: editPlanAccount() started");
 		PlanEntity entity = new PlanEntity();
-		//copy  model properties value into entity
+		// copy model properties value into entity
 		BeanUtils.copyProperties(planModel, entity);
 		try {
-		//save the record		
-			entity=planAccountRepository.save(entity );	
-		}catch(Exception e) {
-			logger.error("AdminServiceImpl: editPlanAccount() failed "+e);
+			// save the record
+			entity = planAccountRepository.save(entity);
+		} catch (Exception e) {
+			logger.error("AdminServiceImpl: editPlanAccount() failed " + e);
 			return ApplicationConstants.FAILED;
 		}
 		logger.debug("AdminServiceImpl: editPlanAccount() ended");
 		return ApplicationConstants.SUCCESS;
 	}
 
-	
 }

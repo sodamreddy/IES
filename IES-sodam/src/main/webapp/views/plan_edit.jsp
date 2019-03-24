@@ -68,11 +68,7 @@
 			</tr>
 			<tr>
 				<td>Plan Name</td>
-<<<<<<< HEAD
-				<td><form:input path="planName"  readonly="true"/></td>
-=======
 				<td><form:input path="planName" readonly="true" /></td>
->>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
 				<td><font color='red'><span id="planmsg"></span></font></td>
 			</tr>
 			<tr>
