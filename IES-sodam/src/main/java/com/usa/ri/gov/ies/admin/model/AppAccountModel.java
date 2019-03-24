@@ -17,11 +17,26 @@ public class AppAccountModel {
 	private String gender;
 	private String role;
 	private String activeSw;
+
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date created;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updated;
+
+	
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -94,17 +109,6 @@ public class AppAccountModel {
 	public void setAppId(int appId) {
 		this.appId = appId;
 	}
-	public Date getCreated() {
-		return created;
-	}
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-	public Date getUpdated() {
-		return updated;
-	}
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
+	
 	
 }

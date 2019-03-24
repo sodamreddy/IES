@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Edit Account</title>
+
+<meta charset="ISO-8859-1">
+<title>Account Registration</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -66,14 +67,15 @@
 			dateFormat : 'dd/mm/yy'
 		});
 
-		/* $("#emailId").blur(function() {
+
+		$("#emailId").blur(function() {
 			var givenEmail = $("#emailId").val();
 			$.ajax({
-				url : window.location + "/uniqueMail",
-				data : "email=" + givenEmail,
+				url : window.location + "/validPlan",
+				data : "emailId=" + email,
 				success : function(result) {
 					if (result == "Duplicate") {
-						$("#emailMsg").html("Email already exists..");
+						$("#emailMsg").html("Email  Already Exists.!!");
 						$("#emailId").focus();
 					} else {
 						$("#emailMsg").html("");
@@ -81,14 +83,13 @@
 					}
 				}
 			});
-		}); */
-
+		}); 
 	});
 </script>
 </head>
 <%@ include file="header.jsp"%>
 <body>
-	<h1>Account Details</h1>
+	<h1>Account Registration Form</h1>
 	<font color="green">${success}</font>
 	<font color="red">${failed}</font>
 
@@ -115,7 +116,8 @@
 			</tr>
 			<tr>
 				<td>Email Id</td>
-				<td><form:input path="emailId"/>
+
+				<td><form:input path="emailId" />
 				<td><font color='red'><span id="emailMsg"></span></font></td>
 			</tr>
 			<tr>
@@ -136,7 +138,11 @@
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
+<<<<<<< HEAD
 				<td><input type="Submit" value="Register" /></td>
+=======
+				<td><input type="Submit" value="Register"/></td>
+>>>>>>> branch 'master' of https://github.com/sodamreddy/javaproj.git
 			</tr>
 		</table>
 	</form:form>
