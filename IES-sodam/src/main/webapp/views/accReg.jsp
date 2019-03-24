@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Edit Account</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="editAccForm"]').validate({
+		$('form[id="accRegForm"]').validate({
 			rules : {
 				firstName : 'required',
 				lastName : 'required',
@@ -66,12 +66,8 @@
 			dateFormat : 'dd/mm/yy'
 		});
 
-		$("#emailId").blur(function() {
+		/* $("#emailId").blur(function() {
 			var givenEmail = $("#emailId").val();
-			if (uri.indexOf("?") > 0) {
-			    var clean_uri = uri.substring(0, uri.indexOf("?"));
-			    window.history.replaceState({}, document.title, clean_uri);
-			}
 			$.ajax({
 				url : window.location + "/uniqueMail",
 				data : "email=" + givenEmail,
@@ -79,14 +75,13 @@
 					if (result == "Duplicate") {
 						$("#emailMsg").html("Email already exists..");
 						$("#emailId").focus();
-						$("#creatAcnBtn").prop("disabled",true);
 					} else {
 						$("#emailMsg").html("");
-						$("#creatAcnBtn").prop("disabled",true);
+						
 					}
 				}
 			});
-		});
+		}); */
 
 	});
 </script>
@@ -97,13 +92,9 @@
 	<font color="green">${success}</font>
 	<font color="red">${failed}</font>
 
-	<form:form action="editAcc" method="POST" id="editAccForm"
+	<form:form action="accReg" method="POST" id="accRegForm"
 		modelAttribute="accModel">
 		<table>
-			<tr>
-				<td>App Id</td>
-				<td><form:input path="appId"  readonly="true"/></td>
-			</tr>
 			<tr>
 				<td>First Name</td>
 				<td><form:input path="firstName" /></td>
@@ -124,9 +115,8 @@
 			</tr>
 			<tr>
 				<td>Email Id</td>
-				<td><form:input path="emailId" readonly="true"/>
+				<td><form:input path="emailId"/>
 				<td><font color='red'><span id="emailMsg"></span></font></td>
-				</td>
 			</tr>
 			<tr>
 				<td>Password</td>
@@ -146,7 +136,7 @@
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
-				<td><input type="Submit" value="Update" id="crtAcnBtn"/></td>
+				<td><input type="Submit" value="Register" /></td>
 			</tr>
 		</table>
 	</form:form>

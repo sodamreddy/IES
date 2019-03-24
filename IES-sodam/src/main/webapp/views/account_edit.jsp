@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
@@ -79,10 +79,8 @@
 					if (result == "Duplicate") {
 						$("#emailMsg").html("Email already exists..");
 						$("#emailId").focus();
-						$("#creatAcnBtn").prop("disabled",true);
 					} else {
 						$("#emailMsg").html("");
-						$("#creatAcnBtn").prop("disabled",true);
 					}
 				}
 			});
@@ -146,7 +144,7 @@
 			</tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
-				<td><input type="Submit" value="Update" id="crtAcnBtn"/></td>
+				<td><input type="Submit" value="Update" /></td>
 			</tr>
 		</table>
 	</form:form>
