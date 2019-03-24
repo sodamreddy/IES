@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Account Registration</title>
+<title>Application Account Edit</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
 	$(function() {
-		$('form[id="accRegForm"]').validate({
+		$('form[id="editAccForm"]').validate({
 			rules : {
 				firstName : 'required',
 				lastName : 'required',
@@ -68,6 +68,12 @@
 
 		$("#emailId").blur(function() {
 			var givenEmail = $("#emailId").val();
+			var uri=window.location.href.toString();
+			console.log(uri)
+			if (uri.indexOf("?") > 0) {
+			    var clean_uri = uri.substring(0, uri.indexOf("?"));
+			    window.history.replaceState({}, document.title, clean_uri);
+			}
 			$.ajax({
 				url : window.location + "/uniqueMail",
 				data : "email=" + givenEmail,
@@ -87,16 +93,16 @@
 </head>
 <%@ include file="header.jsp"%>
 <body>
-	<h1>Registration Form</h1>
+	<h1>Edit Account Details</h1>
 	<font color="green">${success}</font>
 	<font color="red">${failed}</font>
 
-	<form:form action="editAcc" method="POST" id="accRegForm"
+	<form:form action="editAcc" method="POST" id="editAccForm"
 		modelAttribute="accModel">
 		<table>
 			<tr>
 				<td>App Id</td>
-				<td><form:input path="firstName" /></td>
+				<td><form:input path="firstName" readonly="true" /></td>
 			</tr>
 			<tr>
 				<td>First Name</td>
@@ -118,9 +124,8 @@
 			</tr>
 			<tr>
 				<td>Email Id</td>
-				<td><form:input path="emailId" />
+				<td><form:input path="emailId" readonly="true" />
 				<td><font color='red'><span id="emailMsg"></span></font></td>
-				</td>
 			</tr>
 			<tr>
 				<td>Password</td>
@@ -136,15 +141,14 @@
 			</tr>
 			<tr>
 				<td>Role</td>
-				<td><form:select path="role" items="${roleList}"></form:select>
-					<%-- <td><form:select path="role">
-						<form:option value="Admin" />
-						<form:option value="case worker" />
-					</form:select></td> --%>
+				<td><form:select path="role" items="${roleList}"></form:select></td>
 			</tr>
+			<tr><td><form:hidden path="activeSw"/></td></tr>
+			<tr><td><form:hidden path="created"/></td></tr>
+			<tr><td><form:hidden path="updated"/></td></tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
-				<td><input type="Submit" value="Register" /></td>
+				<td><input type="Submit" value="Update" /></td>
 			</tr>
 		</table>
 	</form:form>

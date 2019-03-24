@@ -22,10 +22,7 @@
 								planName : 'required',
 								planStart : 'required',
 								planEnd : 'required',
-								planDesc : {
-									required : true,
-									maxlength : 120,
-								},
+								planDesc : 'required',
 							},//rules
 							messages : {
 								planName : 'Please enter plan name',
@@ -40,55 +37,21 @@
 								form.submit();
 							}
 						});
-		$("#planName").blur(function() {
-			var enteredPlanName = $("#planName").val();
-			$.ajax({
-				url : window.location + "/validPlan",
-				data : "planName=" + enteredPlanName,
-				success : function(result) {
-					if (result == false) {
-						$("#planmsg").html("Plan Already Exists.!!");
-						$("#planName").focus();
-					} else {
-						$("#planmsg").html("");
-					}
-				}
-			});
-		});
+		 $("#datepickerStart").datepicker({
+		    	changeMonth : true,
+				changeYear : true,
+				dateFormat : 'dd/mm/yy',
+		    	  onSelect: function(dateText, inst){
+		    	     $("#datepickerEnd").datepicker("option","minDate",
+		    	     $("#datepickerStart").datepicker("getDate"));
+		    	  }
+		    	});
 
-		/* $("#datepickerStart").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			dateFormat : 'dd/mm/yy'
-		});   */
-
-		/* $("#datepickerStart").datepicker({
-		       defaultDate: new Date(),
-		       minDate: new Date(),
-		       dateFormat : 'dd/mm/yy',
-		       onSelect: function(dateStr) 
-		       {         
-		           $("#datepickerEnd").val(dateStr);
-		           $("#datepickerEnd").datepicker("option",{ minDate: new Date(dateStr)})
-		       }
-		   }); */
-		$("#datepickerStart").datepicker(
-				{
-					changeMonth : true,
-					changeYear : true,
-					dateFormat : 'dd/mm/yy',
-					onSelect : function(dateText, inst) {
-						$("#datepickerEnd").datepicker("option", "minDate",
-								$("#datepickerStart").datepicker("getDate"));
-					}
-				});
-
-		$("#datepickerEnd").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			dateFormat : 'dd/mm/yy',
-		});
-
+			$("#datepickerEnd").datepicker({
+				changeMonth : true,
+				changeYear : true,
+				dateFormat : 'dd/mm/yy',
+			}); 
 	});
 </script>
 </head>
@@ -97,8 +60,7 @@
 <font color="green">${success}</font>
 <font color="red">${failed}</font>
 <body>
-	<form:form action="editPlan" method="POST" id="editPlanForm"
-		modelAttribute="planModel">
+	<form:form action="editPlan" method="POST" modelAttribute="planModel" id="editPlanForm" >
 		<table>
 			<tr>
 				<td>Plan Id</td>
@@ -106,7 +68,7 @@
 			</tr>
 			<tr>
 				<td>Plan Name</td>
-				<td><form:input path="planName" /></td>
+				<td><form:input path="planName" readonly="true" /></td>
 				<td><font color='red'><span id="planmsg"></span></font></td>
 			</tr>
 			<tr>
@@ -121,6 +83,9 @@
 				<td>Plan End Date</td>
 				<td><form:input path="planEnd" id="datepickerEnd" /></td>
 			</tr>
+			<tr><td><form:hidden path="activeSw"/></td></tr>
+			<tr><td><form:hidden path="createdBy"/></td></tr>
+			<tr><td><form:hidden path="updatedBy"/></td></tr>
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
 				<td><input type="Submit" value="Update Plan" /></td>

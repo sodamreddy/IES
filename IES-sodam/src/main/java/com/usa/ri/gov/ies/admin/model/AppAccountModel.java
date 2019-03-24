@@ -1,8 +1,8 @@
 package com.usa.ri.gov.ies.admin.model;
 
+import java.util.Date;
 
-
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class AppAccountModel {
 	
@@ -17,6 +17,23 @@ public class AppAccountModel {
 	private String gender;
 	private String role;
 	private String activeSw;
+	@DateTimeFormat(pattern="dd-MMM-yy")
+	private Date created;
+	@DateTimeFormat(pattern="dd-MMM-yy")
+	private Date updated;
+	
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

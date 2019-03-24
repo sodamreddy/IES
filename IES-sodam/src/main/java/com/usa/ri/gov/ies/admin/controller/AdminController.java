@@ -384,8 +384,10 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/editAcc",method=RequestMethod.POST)
 	public String editAccount(Model model,@ModelAttribute("accModel") AppAccountModel accModel) {
-		logger.debug("AdminController: editPlan() Post Method stared");
+		logger.debug("AdminController: editAccount() Post Method stared");
 		String status= adminService.editAccountRecord(accModel);
+		//keeping roles in model Scope
+		initForm(model);
 		if(ApplicationConstants.SUCCESS.equalsIgnoreCase(status)) {
 			model.addAttribute(ApplicationConstants.SUCCESS,
 					properties.getProperties().get(ApplicationConstants.ACC_EDIT_SUCCESS));

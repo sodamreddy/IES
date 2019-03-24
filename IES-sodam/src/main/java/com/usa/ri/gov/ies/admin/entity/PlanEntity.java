@@ -44,7 +44,7 @@ public class PlanEntity {
 	public int getPlanId() {
 		return planId;
 	}
-	public void setPlainId(int
+	public void setPlanId(int
 			planId) {
 		this.planId = planId;
 	}
