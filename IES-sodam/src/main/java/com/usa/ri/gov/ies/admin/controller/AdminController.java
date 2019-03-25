@@ -189,6 +189,7 @@ public class AdminController {
 	public @ResponseBody String checkEmailValidity(HttpServletRequest req, Model model) {
 		logger.debug("AdminController: checkEmailValidity() started");
 		String email = req.getParameter("emailId");
+		System.out.println(email);
 		String isUnique = adminService.findByEmail(email);
 		logger.debug("AdminController: checkEmailValidity() ended");
 		logger.info("AdminController: checkEmailValidity() executed");

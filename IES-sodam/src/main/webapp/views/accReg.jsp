@@ -67,9 +67,10 @@
 			dateFormat : 'dd/mm/yy'
 		});
 
-
 		$("#emailId").blur(function() {
 			var givenEmail = $("#emailId").val();
+			var uri=window.location.href.toString();
+			console.log(uri);
 			$.ajax({
 				url : window.location + "/uniqueMail",
 				data : "emailId=" + givenEmail,
@@ -79,15 +80,14 @@
 						$("#emailId").focus();
 					} else {
 						$("#emailMsg").html("");
-						
 					}
 				}
 			});
-		}); 
+			
+		});
 	});
 </script>
 </head>
-<%@ include file="header.jsp"%>
 <body>
 	<h1>Account Registration Form</h1>
 	<font color="green">${success}</font>
@@ -138,7 +138,7 @@
 			<tr>
 				<td><input type="reset" value="Reset" /></td>
 
-				<td><input type="Submit" value="Register"/></td>
+				<td><input type="Submit" value="Register" id="submit"/></td>
 			</tr>
 		</table>
 	</form:form>

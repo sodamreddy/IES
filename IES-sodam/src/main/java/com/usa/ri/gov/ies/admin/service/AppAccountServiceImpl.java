@@ -215,7 +215,9 @@ public class AppAccountServiceImpl implements AppAccountService {
 	@Override
 	public String findByEmail(String email) {
 		AppAccountEntity entity = appAccountRepository.findByEmailId(email);
-		return (entity.getEmailId()) == null ? "Unique" : "Duplicate";
+		System.out.println(entity);
+		String status=entity == null ? "Unique" : "Duplicate";
+		return status;
 	}
 
 	/**
