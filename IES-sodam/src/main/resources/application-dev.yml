@@ -34,6 +34,8 @@ ies:
     pwdRecoveryFailure: Password Recovery failed 
     pwdRecoveryFailed: Enter valid registred email
     pwdRecoverySuccess: Password is successfully recovered please check your mail
+    registrationSuccess: Application Registrataion Successful
+    registrationFailed: Application Registrattion failed
 #logging configuration
 logging:
   file: IES-APP-LOGS.log

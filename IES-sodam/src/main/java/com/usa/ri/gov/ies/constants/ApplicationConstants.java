@@ -45,8 +45,10 @@ public class ApplicationConstants {
 	public static final String PWD_RECOVERY_EMAIL_SUBJECT="pwdRecoverySubject";
 	public static final String PWD_RECOVERY_FAILED="pwdRecoveryFailed";
 	public static final String PWD_RECOVERY_SUCCESS="pwdRecoverySuccess";
-	public static final Object ACCOUNT_ACTIVATE_SUCCESS = "appAccountActivationSuccess";
-	public static final Object ACCOUNT_DELETE_SUCCESS = "appAccountDeletedSuccess";
-	public static final Object ACCOUNT_DELETE_FAILED = "appAccountDeletedFailed";
-	public static final Object ACCOUNT_ACTIVATE_FAILED = "appAccountActivationFailed";
+	public static final String ACCOUNT_ACTIVATE_SUCCESS = "appAccountActivationSuccess";
+	public static final String ACCOUNT_DELETE_SUCCESS = "appAccountDeletedSuccess";
+	public static final String ACCOUNT_DELETE_FAILED = "appAccountDeletedFailed";
+	public static final String ACCOUNT_ACTIVATE_FAILED = "appAccountActivationFailed";
+	public static final String APP_REG_SUCCESS="registrationSuccess";
+	public static final String APP_REG_FAILED="registrationFailed";
 }
