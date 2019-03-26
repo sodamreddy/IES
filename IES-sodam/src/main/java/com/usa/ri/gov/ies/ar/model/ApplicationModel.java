@@ -1,7 +1,7 @@
 package com.usa.ri.gov.ies.ar.model;
 
 public class ApplicationModel {
-	private int appNo;
+	private String appNo;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
@@ -10,10 +10,10 @@ public class ApplicationModel {
 	private String emailId;
 	private String password;
 	private String gender;
-	public int getAppNo() {
+	public String getAppNo() {
 		return appNo;
 	}
-	public void setAppNo(int appNo) {
+	public void setAppNo(String appNo) {
 		this.appNo = appNo;
 	}
 	public String getFirstName() {
