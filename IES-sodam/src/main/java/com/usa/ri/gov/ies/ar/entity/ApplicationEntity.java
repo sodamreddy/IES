@@ -3,6 +3,7 @@ package com.usa.ri.gov.ies.ar.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,11 +12,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="applications_master")
 public class ApplicationEntity {
+	
+//	@GenericGenerator(name = "seq1", strategy = " com.usa.ri.gov.ies.util.AppRegCustomIdGenerator")
+//	@GeneratedValue(generator="seq1")
 	@Id
-	@GenericGenerator(name = "seq1", strategy = " com.usa.ri.gov.ies.util.AppRegCustomIdGenerator")
-	@GeneratedValue(generator="seq1")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="App_No")
-	private String appNo;
+	private int appNo;
 	@Column(name="First_Name")
 	private String firstName;
 	@Column(name="Last_Name")
@@ -73,10 +76,10 @@ public class ApplicationEntity {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getAppNo() {
+	public int getAppNo() {
 		return appNo;
 	}
-	public void setAppNo(String appNo) {
+	public void setAppNo(int appNo) {
 		this.appNo = appNo;
 	}
 }

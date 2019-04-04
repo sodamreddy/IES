@@ -31,8 +31,7 @@ public class ApplicationRegistrationController {
 
 		logger.debug("ArController::appRegForm() ended");
 		logger.info("Applicant Reg Form loaded Successfully");
-
-		return "appReg";
+		return "application_registration";
 	}
 
 	/**
@@ -65,6 +64,6 @@ public class ApplicationRegistrationController {
 		} catch (Exception e) {
 			logger.error("User Account Creation Failed :: " + e.getMessage());
 		}
-		return "appReg";
+		return "application_registration";
 }
 }

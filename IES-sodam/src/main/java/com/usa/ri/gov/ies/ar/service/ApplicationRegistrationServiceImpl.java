@@ -3,6 +3,7 @@ package com.usa.ri.gov.ies.ar.service;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,20 +37,20 @@ public class ApplicationRegistrationServiceImpl implements ApplicationRegistrati
 		ApplicationEntity entity = new ApplicationEntity();
 
 		try {
-			entity = repository.findById(appModel.getSsn()).get();
-			if (entity == null) {
+			entity=repository.findBySsn(appModel.getSsn());
+		//Optional<ApplicationEntity>	optionalEntity = repository.findById(appModel.getSsn());
+			if (entity==null) {
 				URI uri = new URI("http://localhost:2122/SSN/validateSSN/" + appModel.getSsn());
 				ResponseEntity<SSNProfile> responseEntity = template.getForEntity(uri, SSNProfile.class);
 				int statusCode = responseEntity.getStatusCodeValue();
 				SSNProfile profile = responseEntity.getBody();
 				if (statusCode == 200) {
-					if (profile.getState().equalsIgnoreCase(ApplicationConstants.STATE_RI))
-						;
-					// covert Model to Entity
+					if (profile.getState().equalsIgnoreCase(ApplicationConstants.STATE_RI))	{		
+					// convert Model to Entity
 					entity = new ApplicationEntity();
 					BeanUtils.copyProperties(appModel, entity);
 					entity = repository.save(entity);
-					if (entity.getAppNo() != null) {
+					if (entity.getAppNo() >0) {
 						map.put(true, (properties.getProperties().get(ApplicationConstants.APPLICANT_REG_SUCCESS)
 								+ entity.getAppNo()));
 						logger.debug("***ArService::registerApplicant() method ended***");
@@ -69,7 +70,9 @@ public class ApplicationRegistrationServiceImpl implements ApplicationRegistrati
 				logger.info("***ArService::Applicant is Already Registered***");
 				return map;
 			}
-		} catch (Exception e) {
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
 			if (e instanceof HttpClientErrorException.BadRequest) {
 				logger.error("***ArService::registerApplicant() method error:", e);
 				map.put(false, properties.getProperties().get(ApplicationConstants.INVALID_SSN_MSG));
